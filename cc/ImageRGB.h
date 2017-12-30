@@ -1,0 +1,29 @@
+#include "converters/Converters.h"
+#include "dlib/Matrix.h"
+#include "dlib/image_transforms.h"
+#include "ImageGray.h"
+
+#ifndef __DFACEJS_IMAGERGB_H__
+#define __DFACEJS_IMAGERGB_H__
+
+class ImageRGB : public Nan::ObjectWrap {
+public:
+	dlib::matrix<dlib::rgb_pixel> img;
+
+	static NAN_MODULE_INIT(Init);
+	static NAN_METHOD(New);
+	static NAN_METHOD(ToGray);
+
+	static Nan::Persistent<v8::FunctionTemplate> constructor;
+
+	dlib::matrix<dlib::rgb_pixel>* getNativeObjectPtr() { return &img; }
+	dlib::matrix<dlib::rgb_pixel> getNativeObject() { return img; }
+
+	typedef InstanceConverter<ImageRGB, dlib::matrix<dlib::rgb_pixel>> Converter;
+
+	static const char* getClassName() {
+		return "ImageRGB";
+	}
+};
+
+#endif
