@@ -9,6 +9,14 @@
   ],
   "author": "justadudewhohacks",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justadudewhohacks/dface.js"
+  },
+  "bugs": {
+    "url": "https://github.com/justadudewhohacks/dface.js/issues"
+  },
+  "homepage": "https://github.com/justadudewhohacks/dface.js#readme",
   "main": "./lib/dfacejs.js",
   "scripts": {
     "install": "node-gyp rebuild",
