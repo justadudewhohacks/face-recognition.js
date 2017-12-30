@@ -8,5 +8,5 @@ crash.log
 coverage
 coverage-report
 tmpdata
-data/models
+examples/models
 .idea/

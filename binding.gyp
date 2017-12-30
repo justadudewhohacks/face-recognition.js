@@ -22,7 +22,8 @@
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
 			"cc/facedetection.cc",
-			"cc/FrontalFaceDetector.cc"
+			"cc/FrontalFaceDetector.cc",
+			"cc/FaceDetectorNet.cc"
 		],
 
 		"cflags" : [
