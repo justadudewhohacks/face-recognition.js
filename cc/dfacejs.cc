@@ -2,7 +2,7 @@
 #include "ImageRGB.h"
 #include "ImageGray.h"
 #include "Rect.h"
-#include "Utils.h"
+#include "utils.h"
 #include "ImageWindow.h"
 #include "facedetection.h"
 

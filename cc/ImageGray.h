@@ -1,5 +1,5 @@
 #include "converters/Converters.h"
-#include "dlib/Matrix.h"
+#include "dlib/matrix.h"
 
 #ifndef __DFACEJS_IMAGEGRAY_H__
 #define __DFACEJS_IMAGEGRAY_H__

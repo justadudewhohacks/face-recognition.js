@@ -1,4 +1,4 @@
-#include "Utils.h"
+#include "utils.h"
 #include "ImageRGB.h"
 #include "ImageGray.h"
 #include <iostream>
@@ -25,18 +25,18 @@ NAN_METHOD(Utils::Load_Image) {
 		tryCatch.ReThrow();
 		return;
 	}
-	
+
 	info.GetReturnValue().Set(ImageRGB::Converter::wrap(img));
 };
 
 NAN_METHOD(Utils::PyramidUp) {
 	bool isGray = ImageGray::Converter::hasInstance(info[0]);
-	
+
 	dlib::matrix<unsigned char> imgGray;
 	dlib::matrix<dlib::rgb_pixel> img;
 	FF_TRY_UNWRAP_ARGS(
 		"PyramidUp",
-		(isGray && ImageGray::Converter::arg(0, &imgGray, info)) 
+		(isGray && ImageGray::Converter::arg(0, &imgGray, info))
 		|| ImageRGB::Converter::arg(0, &img, info)
 	);
 

@@ -1,5 +1,5 @@
 #include "converters/Converters.h"
-#include "dlib/Matrix.h"
+#include "dlib/matrix.h"
 #include "dlib/image_transforms.h"
 #include "ImageGray.h"
 
