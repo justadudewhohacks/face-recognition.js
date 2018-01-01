@@ -1,4 +1,6 @@
 #include "FaceDetectorNet.h"
+#include "ImageRGB.h"
+#include "MmodRect.h"
 
 Nan::Persistent<v8::FunctionTemplate> FaceDetectorNet::constructor;
 
@@ -15,7 +17,6 @@ NAN_MODULE_INIT(FaceDetectorNet::Init) {
 
 NAN_METHOD(FaceDetectorNet::New) {
 	std::string modelPath;
-	double adjustThreshold;
 	FF_TRY_UNWRAP_ARGS(
 		"FaceDetectorNet::New",
 		StringConverter::arg(0, &modelPath, info)
@@ -28,15 +29,13 @@ NAN_METHOD(FaceDetectorNet::New) {
 
 NAN_METHOD(FaceDetectorNet::Detect) {
 	dlib::matrix<dlib::rgb_pixel> img;
-	int batchSize = 128;
 	FF_TRY_UNWRAP_ARGS(
 		"FaceDetectorNet::Detect",
 		ImageRGB::Converter::arg(0, &img, info)
-		|| IntConverter::optArg(1, &batchSize, info)
 	);
 
 	net_type net = FaceDetectorNet::Converter::unwrap(info.This());
-	std::vector<dlib::rectangle> rects = net(img, (size_t)batchSize);
+	std::vector<dlib::mmod_rect> rects = net(img);
 
-	info.GetReturnValue().Set(ObjectArrayConverter<Rect, dlib::rectangle>::wrap(rects));
+	info.GetReturnValue().Set(ObjectArrayConverter<MmodRect, dlib::mmod_rect>::wrap(rects));
 };

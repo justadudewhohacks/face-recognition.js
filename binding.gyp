@@ -19,6 +19,7 @@
 			"cc/ImageRGB.cc",
 			"cc/ImageGray.cc",
 			"cc/Rect.cc",
+			"cc/MmodRect.cc",
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
 			"cc/facedetection.cc",
@@ -33,7 +34,10 @@
 			"-fno-exceptions"
 		],
 		"cflags_cc!": [
-			"-fno-rtti",
+
+			# dlib requires run-time type information
+			#"-fno-rtti",
+
 			"-fno-exceptions"
 		],
 		"xcode_settings": {
@@ -57,10 +61,14 @@
 					"VCCLCompilerTool": {
 						"ExceptionHandling": "2",
 						"RuntimeLibrary": "2",
-						# TODO: figure out how to link with static lib without overriding linker flags
-						# "AdditionalOptions": [
-							# "/MD"
-						# ]
+						"AdditionalOptions": [
+							"/MD",
+
+							# dlib requires run-time type information
+							"/GR"
+
+
+						]
 					},
 				}
 			}]

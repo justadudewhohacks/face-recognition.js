@@ -1,6 +1,9 @@
 const path = require('path')
 const fs = require('fs')
-const df = require('../')
+const {
+  df,
+  drawRects
+} = require('./commons')
 
 const modelFile = path.resolve('./models/mmod_human_face_detector.dat')
 if (!fs.existsSync(modelFile)) {
@@ -13,19 +16,21 @@ const net = new df.FaceDetectorNet(modelFile)
 
 const lenna = df.loadImage('./data/Lenna.png')
 const lennaFaceRects = net.detect(lenna)
+console.log('detection result for Lenna.png:')
+console.log(lennaFaceRects)
 
 const win1 = new df.ImageWindow()
 win1.setImage(lenna)
-drawRects(win1, lennaFaceRects)
+drawRects(win1, lennaFaceRects.map(mmodRect => mmodRect.rect))
 
 const got = df.loadImage('./data/got.jpg')
-// scale image up to detect smaller faces
-const gotBig = df.pyramidUp(got);
-const gotFaceRects = net.detect(gotBig)
+const gotFaceRects = net.detect(got)
+console.log('detection result for got.jpg:')
+console.log(gotFaceRects)
 
 const win2 = new df.ImageWindow()
 win2.setImage(got)
-drawRects(win2, gotFaceRects.map(rect => rescaleRect(rect, 0.5)))
+drawRects(win2, gotFaceRects.map(mmodRect => mmodRect.rect))
 
 df.hitEnterToContinue()
 
