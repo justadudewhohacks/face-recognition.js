@@ -10,6 +10,7 @@ public:
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(Load_Image);
 	static NAN_METHOD(PyramidUp);
+	static NAN_METHOD(ResizeImage);
 	static NAN_METHOD(HitEnterToContinue);
 };
 

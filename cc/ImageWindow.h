@@ -1,5 +1,6 @@
 #include "converters/Converters.h"
 #include <dlib/gui_widgets.h>
+#include <dlib/image_processing/render_face_detections.h>
 
 #ifndef __DFACEJS_IMAGEWINDOW_H__
 #define __DFACEJS_IMAGEWINDOW_H__
@@ -14,6 +15,7 @@ public:
 	static NAN_METHOD(SetSize);
 	static NAN_METHOD(ClearOverlay);
 	static NAN_METHOD(AddOverlay);
+	static NAN_METHOD(RenderFaceDetections);
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 };

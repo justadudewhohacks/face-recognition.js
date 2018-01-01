@@ -20,11 +20,14 @@
 			"cc/ImageGray.cc",
 			"cc/Rect.cc",
 			"cc/MmodRect.cc",
+			"cc/FullObjectDetection.cc",
+			"cc/Point.cc",
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
 			"cc/facedetection.cc",
 			"cc/FrontalFaceDetector.cc",
-			"cc/FaceDetectorNet.cc"
+			"cc/FaceDetectorNet.cc",
+			"cc/ShapePredictor.cc"
 		],
 
 		"cflags" : [

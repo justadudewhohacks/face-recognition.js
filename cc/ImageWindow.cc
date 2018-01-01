@@ -2,6 +2,7 @@
 #include "ImageRGB.h"
 #include "ImageGray.h"
 #include "Rect.h"
+#include "FullObjectDetection.h"
 
 Nan::Persistent<v8::FunctionTemplate> ImageWindow::constructor;
 
@@ -13,8 +14,9 @@ NAN_MODULE_INIT(ImageWindow::Init) {
 
 	Nan::SetPrototypeMethod(ctor, "setImage", SetImage);
 	Nan::SetPrototypeMethod(ctor, "setSize", SetSize);
-	Nan::SetPrototypeMethod(ctor, "clearOverlay", ClearOverlay);
+	Nan::SetPrototypeMethod(ctor, "clearOverlay", ClearOverlay); 
 	Nan::SetPrototypeMethod(ctor, "addOverlay", AddOverlay);
+	Nan::SetPrototypeMethod(ctor, "renderFaceDetections", RenderFaceDetections);
 
   target->Set(Nan::New("ImageWindow").ToLocalChecked(), ctor->GetFunction());
 };
@@ -67,4 +69,20 @@ NAN_METHOD(ImageWindow::AddOverlay) {
 		Rect::Converter::arg(0, &rect, info)
 	);
 	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(rect);
+};
+
+#define FF_TRY_UNWRAP_ARGS2(ff_methodName, applyUnwrappers)\
+	Nan::TryCatch tryCatch;\
+	if (applyUnwrappers) {\
+		return;\
+	}
+
+NAN_METHOD(ImageWindow::RenderFaceDetections) {
+	std::vector<dlib::full_object_detection> detections;
+	bool didThrow = ObjectArrayConverter<FullObjectDetection, dlib::full_object_detection>::arg(0, &detections, info);
+	FF_TRY_UNWRAP_ARGS2(
+		"ImageWindow::RenderFaceDetections", 
+		didThrow
+	);
+	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(dlib::render_face_detections(detections));
 };
