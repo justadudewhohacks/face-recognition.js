@@ -1,6 +1,6 @@
 {
   "name": "dface.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple Node.js API for robust face detection and face recognition.",
   "keywords": [
     "face",
