@@ -5,6 +5,7 @@
 #include "MmodRect.h"
 #include "FullObjectDetection.h"
 #include "Point.h"
+#include "ChipDetails.h"
 #include "utils.h"
 #include "ImageWindow.h"
 #include "facedetection.h"
@@ -16,6 +17,7 @@ NAN_MODULE_INIT(InitModule) {
 	MmodRect::Init(target);
 	FullObjectDetection::Init(target);
 	Point::Init(target);
+	ChipDetails::Init(target);
 	Utils::Init(target);
 	FaceDetection::Init(target);
 	ImageWindow::Init(target);

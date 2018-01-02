@@ -12,6 +12,9 @@ public:
 	static NAN_METHOD(PyramidUp);
 	static NAN_METHOD(ResizeImage);
 	static NAN_METHOD(HitEnterToContinue);
+	static NAN_METHOD(GetFaceChipDetails);
+	static NAN_METHOD(ExtractImageChips);
+	static NAN_METHOD(TileImages);
 };
 
 #endif

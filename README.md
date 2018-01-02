@@ -3,7 +3,7 @@ dface.js
 
 Simple Node.js API for robust face detection and face recognition. This a Node.js wrapper library for the face detection and face recognition tools implemented in <a href="https://github.com/davisking/dlib"><b>dlib</b></a>.
 
-## TBD
+## Still under construction, not safe for production :P
 
 ## How to set up
 1. Clone and build <a href="https://github.com/davisking/dlib"><b>dlib</b></a>.
@@ -23,7 +23,7 @@ npm install
 ### Face Detection
 
 ![face-got](https://user-images.githubusercontent.com/31125521/34471083-636f939a-ef3f-11e7-91e0-f4308abb8011.jpg)
-![face-lenna](https://user-images.githubusercontent.com/31125521/34471085-638c9f3a-ef3f-11e7-8687-a43678bd16a5.jpg)
+![faces](https://user-images.githubusercontent.com/31125521/34500565-9670989e-f00b-11e7-8c2d-012aa72b2de1.jpg)
 
 ### Face Landmarks
 

@@ -22,6 +22,7 @@
 			"cc/MmodRect.cc",
 			"cc/FullObjectDetection.cc",
 			"cc/Point.cc",
+			"cc/ChipDetails.cc",
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
 			"cc/facedetection.cc",

@@ -71,16 +71,10 @@ NAN_METHOD(ImageWindow::AddOverlay) {
 	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(rect);
 };
 
-#define FF_TRY_UNWRAP_ARGS2(ff_methodName, applyUnwrappers)\
-	Nan::TryCatch tryCatch;\
-	if (applyUnwrappers) {\
-		return;\
-	}
-
 NAN_METHOD(ImageWindow::RenderFaceDetections) {
 	std::vector<dlib::full_object_detection> detections;
 	bool didThrow = ObjectArrayConverter<FullObjectDetection, dlib::full_object_detection>::arg(0, &detections, info);
-	FF_TRY_UNWRAP_ARGS2(
+	FF_TRY_UNWRAP_ARGS(
 		"ImageWindow::RenderFaceDetections", 
 		didThrow
 	);

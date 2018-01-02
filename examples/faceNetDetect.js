@@ -1,18 +1,10 @@
-const path = require('path')
-const fs = require('fs')
 const {
   df,
-  drawRects
+  drawRects,
+  loadFaceNet
 } = require('./commons')
 
-const modelFile = path.resolve('./models/mmod_human_face_detector.dat')
-if (!fs.existsSync(modelFile)) {
-  console.log('mmod_human_face_detector.dat not found')
-  console.log('get the model from https://github.com/davisking/dlib-models')
-  throw new Error('exiting')
-}
-
-const net = new df.FaceDetectorNet(modelFile)
+const net = loadFaceNet()
 
 const lenna = df.loadImage('./data/Lenna.png')
 const lennaFaceRects = net.detect(lenna)
