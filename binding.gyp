@@ -1,6 +1,6 @@
 {
 	"targets": [{
-		"target_name": "dfacejs",
+		"target_name": "facerec",
 		# TODO: from config.h
 		"defines": [
 			"DLIB_PNG_SUPPORT",
@@ -15,7 +15,7 @@
 			"<!@(node ./lib/libs.js)"
 		],
 		"sources": [
-			"cc/dfacejs.cc",
+			"cc/index.cc",
 			"cc/ImageRGB.cc",
 			"cc/ImageGray.cc",
 			"cc/Rect.cc",
@@ -25,10 +25,9 @@
 			"cc/ChipDetails.cc",
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
-			"cc/facedetection.cc",
+			"cc/ShapePredictor.cc",
 			"cc/FrontalFaceDetector.cc",
-			"cc/FaceDetectorNet.cc",
-			"cc/ShapePredictor.cc"
+			"cc/FaceDetectorNet.cc"
 		],
 
 		"cflags" : [
@@ -65,6 +64,7 @@
 					"VCCLCompilerTool": {
 						"ExceptionHandling": "2",
 						"RuntimeLibrary": "2",
+						#"RuntimeTypeInfo": "true",
 						"AdditionalOptions": [
 							"/MD",
 

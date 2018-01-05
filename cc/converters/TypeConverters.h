@@ -46,6 +46,23 @@ public:
 
 typedef AbstractConverter<SingleTypeConverter<UintTypeConverter, uint>, uint> UintConverter;
 
+class UlongTypeConverter : public TypeConverter<unsigned long> {
+public:
+	static const char* getTypeName() {
+		return "ulong";
+	}
+
+	static bool assertType(v8::Local<v8::Value> jsVal) {
+		return jsVal->IsNumber();
+	}
+
+	static float unwrap(v8::Local<v8::Value> jsVal) {
+		return jsVal->NumberValue();
+	}
+};
+
+typedef AbstractConverter<SingleTypeConverter<UlongTypeConverter, unsigned long>, unsigned long>  UlongConverter;
+
 
 class BoolTypeConverter : public TypeConverter<bool> {
 public:
@@ -63,7 +80,6 @@ public:
 };
 
 typedef AbstractConverter<SingleTypeConverter<BoolTypeConverter, bool>, bool>  BoolConverter;
-
 
 class NumberTypeConverter : public TypeConverter<double> {
 public:

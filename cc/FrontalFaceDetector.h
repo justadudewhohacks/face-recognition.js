@@ -1,8 +1,8 @@
 #include "converters/Converters.h"
 #include "dlib/image_processing/frontal_face_detector.h"
 
-#ifndef __DFACEJS_FRONTALFACEDETECTOR_H__
-#define __DFACEJS_FRONTALFACEDETECTOR_H__
+#ifndef __FACEREC_FRONTALFACEDETECTOR_H__
+#define __FACEREC_FRONTALFACEDETECTOR_H__
 
 class FrontalFaceDetector : public Nan::ObjectWrap {
 public:

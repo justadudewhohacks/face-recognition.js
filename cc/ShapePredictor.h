@@ -1,8 +1,8 @@
 #include "converters/Converters.h"
 #include <dlib/image_processing.h>
 
-#ifndef __DFACEJS_SHAPEPREDICTOR_H__
-#define __DFACEJS_SHAPEPREDICTOR_H__
+#ifndef __FACEREC_SHAPEPREDICTOR_H__
+#define __FACEREC_SHAPEPREDICTOR_H__
 
 class ShapePredictor : public Nan::ObjectWrap {
 public:

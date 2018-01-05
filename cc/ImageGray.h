@@ -1,8 +1,8 @@
 #include "converters/Converters.h"
 #include "dlib/matrix.h"
 
-#ifndef __DFACEJS_IMAGEGRAY_H__
-#define __DFACEJS_IMAGEGRAY_H__
+#ifndef __FACEREC_IMAGEGRAY_H__
+#define __FACEREC_IMAGEGRAY_H__
 
 class ImageGray : public Nan::ObjectWrap {
 public:

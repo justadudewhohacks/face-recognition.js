@@ -2,8 +2,8 @@
 #include "dlib/image_transforms.h"
 #include "Rect.h"
 
-#ifndef __DFACEJS_CHIPDETAILS_H__
-#define __DFACEJS_CHIPDETAILS_H__
+#ifndef __FACEREC_CHIPDETAILS_H__
+#define __FACEREC_CHIPDETAILS_H__
 
 class ChipDetails : public Nan::ObjectWrap {
 public:

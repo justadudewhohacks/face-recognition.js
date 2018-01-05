@@ -3,8 +3,8 @@
 #include "dlib/image_transforms.h"
 #include "ImageGray.h"
 
-#ifndef __DFACEJS_IMAGERGB_H__
-#define __DFACEJS_IMAGERGB_H__
+#ifndef __FACEREC_IMAGERGB_H__
+#define __FACEREC_IMAGERGB_H__
 
 class ImageRGB : public Nan::ObjectWrap {
 public:

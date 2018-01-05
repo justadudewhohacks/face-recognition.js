@@ -1,33 +1,33 @@
 const path = require('path')
 const {
-  df,
+  fr,
   drawRects,
   rescaleRect
 } = require('./commons')
 
-const detector = new df.FrontalFaceDetector()
+const detector = new fr.FrontalFaceDetector()
 
-const lenna = df.loadImage('./data/Lenna.png')
+const lenna = fr.loadImage('./data/Lenna.png')
 const lennaFaceRects = detector.detect(lenna)
 console.log('detection result for Lenna.png:')
 console.log(lennaFaceRects)
 
-const win1 = new df.ImageWindow()
+const win1 = new fr.ImageWindow()
 win1.setImage(lenna)
 drawRects(win1, lennaFaceRects)
 
-const got = df.loadImage('./data/got.jpg')
+const got = fr.loadImage('./data/got.jpg')
 // scale image up to detect smaller faces
-const gotBig = df.pyramidUp(got);
+const gotBig = fr.pyramidUp(got);
 const gotFaceRects = detector.detect(gotBig)
 console.log('detection result for got.jpg:')
 console.log(gotFaceRects)
 
-const win2 = new df.ImageWindow()
+const win2 = new fr.ImageWindow()
 win2.setImage(got)
 drawRects(win2, gotFaceRects.map(rect => rescaleRect(rect, 0.5)))
 
-df.hitEnterToContinue()
+fr.hitEnterToContinue()
 
 
 

@@ -1,23 +1,20 @@
 #include "converters/Converters.h"
 #include <dlib/dnn.h>
 
-#ifndef __DFACEJS_FACEDETECTORNET_H__
-#define __DFACEJS_FACEDETECTORNET_H__
-
-// definitions from https://github.com/davisking/dlib/blob/master/examples/dnn_mmod_face_detection_ex.cpp
-
-template <long num_filters, typename SUBNET> using con5d = dlib::con<num_filters, 5, 5, 2, 2, SUBNET>;
-template <long num_filters, typename SUBNET> using con5 = dlib::con<num_filters, 5, 5, 1, 1, SUBNET>;
-
-
-template <typename SUBNET> using downsampler = dlib::relu<dlib::affine<con5d<32, dlib::relu<dlib::affine<con5d<32, dlib::relu<dlib::affine<con5d<16, SUBNET>>>>>>>>>;
-template <typename SUBNET> using rcon5 = dlib::relu<dlib::affine<con5<45, SUBNET>>>;
-
-using net_type = dlib::loss_mmod<dlib::con<1, 9, 9, 1, 1, rcon5<rcon5<rcon5<downsampler<dlib::input_rgb_image_pyramid<dlib::pyramid_down<6>>>>>>>>;
-
+#ifndef __FACEREC_FACEDETECTORNET_H__
+#define __FACEREC_FACEDETECTORNET_H__
 
 class FaceDetectorNet : public Nan::ObjectWrap {
 public:
+	// definitions from https://github.com/davisking/dlib/blob/master/examples/dnn_mmod_face_detection_ex.cpp
+	template <long num_filters, typename SUBNET> using con5d = dlib::con<num_filters, 5, 5, 2, 2, SUBNET>;
+	template <long num_filters, typename SUBNET> using con5 = dlib::con<num_filters, 5, 5, 1, 1, SUBNET>;
+
+	template <typename SUBNET> using downsampler = dlib::relu<dlib::affine<con5d<32, dlib::relu<dlib::affine<con5d<32, dlib::relu<dlib::affine<con5d<16, SUBNET>>>>>>>>>;
+	template <typename SUBNET> using rcon5 = dlib::relu<dlib::affine<con5<45, SUBNET>>>;
+
+	using net_type = dlib::loss_mmod<dlib::con<1, 9, 9, 1, 1, rcon5<rcon5<rcon5<downsampler<dlib::input_rgb_image_pyramid<dlib::pyramid_down<6>>>>>>>>;
+
 	net_type net;
 
 	static NAN_MODULE_INIT(Init);

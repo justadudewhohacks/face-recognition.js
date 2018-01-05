@@ -1,8 +1,8 @@
 #include "converters/Converters.h"
 #include "dlib/geometry/rectangle.h"
 
-#ifndef __DFACEJS_RECT_H__
-#define __DFACEJS_RECT_H__
+#ifndef __FACEREC_RECT_H__
+#define __FACEREC_RECT_H__
 
 class Rect : public Nan::ObjectWrap {
 public:
@@ -23,7 +23,7 @@ public:
 	static NAN_GETTER(GetBottom) {
 		info.GetReturnValue().Set((int)Converter::unwrap(info.This()).bottom());
 	}
-	static NAN_GETTER(GetArea) { 
+	static NAN_GETTER(GetArea) {
 		info.GetReturnValue().Set((int)Converter::unwrap(info.This()).area());
 	}
 

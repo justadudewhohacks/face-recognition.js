@@ -2,8 +2,8 @@
 #include <dlib/gui_widgets.h>
 #include <dlib/image_processing/render_face_detections.h>
 
-#ifndef __DFACEJS_IMAGEWINDOW_H__
-#define __DFACEJS_IMAGEWINDOW_H__
+#ifndef __FACEREC_IMAGEWINDOW_H__
+#define __FACEREC_IMAGEWINDOW_H__
 
 class ImageWindow : public Nan::ObjectWrap {
 public:

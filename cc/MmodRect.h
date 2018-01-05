@@ -2,8 +2,8 @@
 #include "dlib/image_processing/full_object_detection.h"
 #include "Rect.h"
 
-#ifndef __DFACEJS_MMODRECT_H__
-#define __DFACEJS_MMODRECT_H__
+#ifndef __FACEREC_MMODRECT_H__
+#define __FACEREC_MMODRECT_H__
 
 class MmodRect : public Nan::ObjectWrap {
 public:

@@ -1,21 +1,21 @@
 const {
-  df,
+  fr,
   drawRects,
-  loadFaceNet,
+  loadFaceDetectorNet,
   loadFace68LandmarkPredictor
 } = require('./commons')
 
-const net = loadFaceNet()
+const net = loadFaceDetectorNet()
 const face68LandmarkPredictor = loadFace68LandmarkPredictor()
 
-const img = df.loadImage('./data/got.jpg')
+const img = fr.loadImage('./data/got.jpg')
 const faceRects = net.detect(img).map(mmodRect => mmodRect.rect)
 const shapes68 = faceRects.map(rect => face68LandmarkPredictor.predict(img, rect))
-const details = df.getFaceChipDetails(shapes68)
-const faceChips =  df.extractImageChips(img, details)
-const tileImages = df.tileImages(faceChips)
-const win = new df.ImageWindow()
+const details = fr.getFaceChipDetails(shapes68)
+const faceChips =  fr.extractImageChips(img, details)
+const tileImages = fr.tileImages(faceChips)
+const win = new fr.ImageWindow()
 win.setImage(tileImages)
 
-df.hitEnterToContinue()
+fr.hitEnterToContinue()
 

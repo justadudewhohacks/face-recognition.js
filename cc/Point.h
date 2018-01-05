@@ -1,8 +1,8 @@
 #include "converters/Converters.h"
 #include "dlib/geometry/vector.h"
 
-#ifndef __DFACEJS_POINT_H__
-#define __DFACEJS_POINT_H__
+#ifndef __FACEREC_POINT_H__
+#define __FACEREC_POINT_H__
 
 class Point : public Nan::ObjectWrap {
 public:

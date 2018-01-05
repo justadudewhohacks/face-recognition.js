@@ -1,4 +1,5 @@
 #include <nan.h>
+#include "utils.h"
 #include "ImageRGB.h"
 #include "ImageGray.h"
 #include "Rect.h"
@@ -6,9 +7,10 @@
 #include "FullObjectDetection.h"
 #include "Point.h"
 #include "ChipDetails.h"
-#include "utils.h"
 #include "ImageWindow.h"
-#include "facedetection.h"
+#include "ShapePredictor.h"
+#include "FrontalFaceDetector.h"
+#include "FaceDetectorNet.h"
 
 NAN_MODULE_INIT(InitModule) {
 	ImageRGB::Init(target);
@@ -19,8 +21,10 @@ NAN_MODULE_INIT(InitModule) {
 	Point::Init(target);
 	ChipDetails::Init(target);
 	Utils::Init(target);
-	FaceDetection::Init(target);
 	ImageWindow::Init(target);
+	ShapePredictor::Init(target);
+	FrontalFaceDetector::Init(target);
+	FaceDetectorNet::Init(target);
 }
 
-NODE_MODULE(dfacejs, InitModule);
+NODE_MODULE(facerec, InitModule);

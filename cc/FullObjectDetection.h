@@ -2,8 +2,8 @@
 #include "dlib/image_processing/full_object_detection.h"
 #include "Rect.h"
 
-#ifndef __DFACEJS_FULLOBJECTDETECTION_H__
-#define __DFACEJS_FULLOBJECTDETECTION_H__
+#ifndef __FACEREC_FULLOBJECTDETECTION_H__
+#define __FACEREC_FULLOBJECTDETECTION_H__
 
 class FullObjectDetection : public Nan::ObjectWrap {
 public:

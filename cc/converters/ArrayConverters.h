@@ -50,6 +50,7 @@ class DoubleArrayConverter : public AbstractConverter<ArrayConverterType<NumberT
 class FloatArrayConverter : public AbstractConverter<ArrayConverterType<NumberTypeConverter, float>, std::vector<float>> {};
 class UintArrayConverter : public AbstractConverter<ArrayConverterType<UintTypeConverter, uint>, std::vector<uint>> {};
 class IntArrayConverter : public AbstractConverter<ArrayConverterType<IntTypeConverter, int>, std::vector<int>> {};
+class UlongArrayConverter : public AbstractConverter<ArrayConverterType<UlongTypeConverter, unsigned long>, std::vector<unsigned long>> {};
 class StringArrayConverter : public AbstractConverter<ArrayConverterType<StringTypeConverter, std::string>, std::vector<std::string>> {};
 
 template <class Clazz, class T, class CastType = T>

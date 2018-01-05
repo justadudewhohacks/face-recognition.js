@@ -1,14 +1,14 @@
 const path = require('path')
 const fs = require('fs')
-const df = require('../')
+const fr = require('../')
 
-exports.df = df
+exports.fr = fr
 
 exports.drawRects = (win, rects) =>
   rects.forEach(rect => win.addOverlay(rect))
 
 exports.rescaleRect = (rect, f) =>
-  new df.Rect(rect.left * f, rect.top * f, rect.right * f, rect.bottom * f)
+  new fr.Rect(rect.left * f, rect.top * f, rect.right * f, rect.bottom * f)
 
 function loadModel(modelFile) {
   const modelPath = path.resolve(path.join('./models', modelFile))
@@ -20,9 +20,13 @@ function loadModel(modelFile) {
   return modelPath
 }
 
+exports.loadModel = loadModel
+
 exports.loadFace5LandmarkPredictor = () =>
-  new df.ShapePredictor(loadModel('shape_predictor_5_face_landmarks.dat'))
+  new fr.ShapePredictor(loadModel('shape_predictor_5_face_landmarks.dat'))
 exports.loadFace68LandmarkPredictor = () =>
-  new df.ShapePredictor(loadModel('shape_predictor_68_face_landmarks.dat'))
-exports.loadFaceNet = () =>
-  new df.FaceDetectorNet(loadModel('mmod_human_face_detector.dat'))
+  new fr.ShapePredictor(loadModel('shape_predictor_68_face_landmarks.dat'))
+exports.loadFaceDetectorNet = () =>
+  new fr.FaceDetectorNet(loadModel('mmod_human_face_detector.dat'))
+exports.loadFaceRecognizerNet = () =>
+  new fr.FaceRecognizerNet(loadModel('dlib_face_recognition_resnet_model_v1.dat'))

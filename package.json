@@ -1,6 +1,6 @@
 {
-  "name": "dface.js",
-  "version": "0.0.1",
+  "name": "face-recognition",
+  "version": "0.0.0",
   "description": "Simple Node.js API for robust face detection and face recognition.",
   "keywords": [
     "face",
@@ -11,13 +11,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justadudewhohacks/dface.js"
+    "url": "git+https://github.com/justadudewhohacks/face-recognition.js"
   },
   "bugs": {
-    "url": "https://github.com/justadudewhohacks/dface.js/issues"
+    "url": "https://github.com/justadudewhohacks/face-recognition.js/issues"
   },
-  "homepage": "https://github.com/justadudewhohacks/dface.js#readme",
-  "main": "./lib/dfacejs.js",
+  "homepage": "https://github.com/justadudewhohacks/face-recognition.js#readme",
+  "main": "./lib/index.js",
   "scripts": {
     "install": "node-gyp rebuild",
     "configure": "node-gyp configure",

@@ -2,8 +2,8 @@
 #include "dlib/image_io.h"
 #include "dlib/image_transforms.h"
 
-#ifndef __DFACEJS_UTILS_H__
-#define __DFACEJS_UTILS_H__
+#ifndef __FACEREC_UTILS_H__
+#define __FACEREC_UTILS_H__
 
 class Utils : public Nan::ObjectWrap {
 public:
