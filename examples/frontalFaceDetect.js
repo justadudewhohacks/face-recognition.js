@@ -19,13 +19,16 @@ drawRects(win1, lennaFaceRects)
 const got = fr.loadImage('./data/got.jpg')
 // scale image up to detect smaller faces
 const gotBig = fr.pyramidUp(got);
-const gotFaceRects = detector.detect(gotBig)
+const gotBigFaceRects = detector.detect(gotBig)
 console.log('detection result for got.jpg:')
-console.log(gotFaceRects)
+console.log(gotBigFaceRects)
+
+// scale detected rectangles back to original image size
+const gotFaceRects = gotBigFaceRects.map(rect => rescaleRect(rect, 0.5))
 
 const win2 = new fr.ImageWindow()
 win2.setImage(got)
-drawRects(win2, gotFaceRects.map(rect => rescaleRect(rect, 0.5)))
+drawRects(win2, gotFaceRects)
 
 fr.hitEnterToContinue()
 

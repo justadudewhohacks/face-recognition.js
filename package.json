@@ -28,6 +28,7 @@
   },
   "gypfile": true,
   "dependencies": {
+    "face-recognition-models": "0.0.0",
     "nan": "^2.7.0"
   }
 }

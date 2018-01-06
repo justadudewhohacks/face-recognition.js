@@ -1,14 +1,11 @@
 const path = require('path')
 const fs = require('fs')
-const {
-  fr
-} = require('./commons')
-const FaceRecognizer = require('./FaceRecognizer')
+const { fr } = require('./commons')
 
 const dataPath = path.resolve('./data/facerec')
 const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
 
-const recognizer = FaceRecognizer()
+const recognizer = fr.FaceRecognizer()
 
 console.log('loading data')
 const allFiles = fs.readdirSync(dataPath)
