@@ -30,6 +30,10 @@ public:
 	static std::vector<double> toVec(dlib::matrix<double> arr) {
 		return std::vector<double>(arr.begin(), arr.end());
 	}
+
+	static dlib::matrix<double> fromVec(std::vector<double> vec) {
+		return dlib::mat(vec);
+	}
 };
 
 #endif

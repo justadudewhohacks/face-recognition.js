@@ -65,11 +65,13 @@ NAN_METHOD(ImageWindow::ClearOverlay) {
 
 NAN_METHOD(ImageWindow::AddOverlay) {
 	dlib::rectangle rect;
+	std::string label = "";
 	FF_TRY_UNWRAP_ARGS(
 		"ImageWindow::SetImage",
 		Rect::Converter::arg(0, &rect, info)
-	);
-	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(rect);
+		|| StringConverter::optArg(1, &label, info)
+	); 
+	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(dlib::image_window::overlay_rect(rect, dlib::rgb_pixel(0, 0, 255), label));
 };
 
 NAN_METHOD(ImageWindow::RenderFaceDetections) {

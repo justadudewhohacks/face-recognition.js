@@ -3,8 +3,6 @@ face-recognition.js
 
 Simple Node.js API for robust face detection and face recognition. This a Node.js wrapper library for the face detection and face recognition tools implemented in <a href="https://github.com/davisking/dlib"><b>dlib</b></a>.
 
-## Still under construction, not safe for production :P
-
 ## How to set up
 1. Clone and build <a href="https://github.com/davisking/dlib"><b>dlib</b></a>.
 
@@ -15,8 +13,6 @@ set DLIB_INCLUDE_DIR=...
 set DLIB_LIB_DIR=...
 npm install
 ```
-
-3. Get the <a href="https://github.com/davisking/dlib-models"><b>models</b></a> you want to work with.
 
 ## Examples
 
@@ -32,7 +28,4 @@ npm install
 
 
 ### Face Recognition
-### TBD
-
-
-
+![facerec](https://user-images.githubusercontent.com/31125521/34644195-fca4a3b6-f331-11e7-85c9-04adc9c4e413.jpg)
