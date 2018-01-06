@@ -16,6 +16,7 @@ public:
 	static NAN_METHOD(ClearOverlay);
 	static NAN_METHOD(AddOverlay);
 	static NAN_METHOD(RenderFaceDetections);
+	static NAN_METHOD(Close);
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 };

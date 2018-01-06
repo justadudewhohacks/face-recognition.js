@@ -22,12 +22,14 @@
 			"cc/MmodRect.cc",
 			"cc/FullObjectDetection.cc",
 			"cc/Point.cc",
+			"cc/Array.cc",
 			"cc/ChipDetails.cc",
 			"cc/utils.cc",
 			"cc/ImageWindow.cc",
 			"cc/ShapePredictor.cc",
 			"cc/FrontalFaceDetector.cc",
-			"cc/FaceDetectorNet.cc"
+			"cc/FaceDetectorNet.cc",
+			"cc/FaceRecognizerNet.cc"
 		],
 
 		"cflags" : [

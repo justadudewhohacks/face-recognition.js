@@ -7,6 +7,7 @@ const {
 const net = loadFaceDetectorNet()
 
 const lenna = fr.loadImage('./data/Lenna.png')
+console.log('detecting faces')
 const lennaFaceRects = net.detect(lenna)
 console.log('detection result for Lenna.png:')
 console.log(lennaFaceRects)
@@ -16,6 +17,7 @@ win1.setImage(lenna)
 drawRects(win1, lennaFaceRects.map(mmodRect => mmodRect.rect))
 
 const got = fr.loadImage('./data/got.jpg')
+console.log('detecting faces')
 const gotFaceRects = net.detect(got)
 console.log('detection result for got.jpg:')
 console.log(gotFaceRects)

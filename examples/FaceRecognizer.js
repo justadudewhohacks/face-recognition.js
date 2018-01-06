@@ -1,9 +1,9 @@
-const { resolvePath } = require('./utils')
-const dlib = process.platform === 'win32' ? 'dlib.lib' : 'dlib.so'
+const {
+  fr,
+  loadFaceRecognizerNet
+} = require('./commons')
 
-console.log(resolvePath(process.env.DLIB_LIB_DIR, dlib))
-
-function FaceRecognizer() {
+module.exports = function() {
   const net = loadFaceRecognizerNet()
   const descriptorsByClass = []
 
@@ -55,10 +55,14 @@ function FaceRecognizer() {
       return
     }
 
-    descriptorsByClass[idx].faceDescriptors = descriptorsByClass[idx].faceDescriptors.push(faceDescriptors)
+    descriptorsByClass[idx].faceDescriptors = descriptorsByClass[idx].faceDescriptors.concat(faceDescriptors)
   }
 
   function predict(face) {
+    if (descriptorsByClass.length < 2) {
+      throw new Error('predict - expected FaceRecognizer to be trained with at least 2 different classes')
+    }
+
     const inputDescriptor = net.computeFaceDescriptor(face)
     return descriptorsByClass.map(ds => ({
       className: ds.className,
@@ -71,8 +75,8 @@ function FaceRecognizer() {
       .sort((p1, p2) => p1.distance - p2.distance)[0]
   }
 
-  function showDescriptors() {
-    return descriptors.map(d => ({ className: d.className, numFaces: d.faceDescriptors.length }))
+  function getDescriptorState() {
+    return descriptorsByClass.map(d => ({ className: d.className, numFaces: d.faceDescriptors.length }))
   }
 
   return ({
@@ -80,6 +84,6 @@ function FaceRecognizer() {
     addFaces,
     predict,
     predictBest,
-    showDescriptors
+    getDescriptorState
   })
 }

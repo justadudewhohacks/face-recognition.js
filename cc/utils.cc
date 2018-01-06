@@ -3,6 +3,7 @@
 #include "ImageGray.h"
 #include "FullObjectDetection.h"
 #include "ChipDetails.h"
+#include "Array.h"
 #include <iostream>
 
 NAN_MODULE_INIT(Utils::Init) {
@@ -13,6 +14,9 @@ NAN_MODULE_INIT(Utils::Init) {
 	Nan::SetMethod(target, "getFaceChipDetails", GetFaceChipDetails);
 	Nan::SetMethod(target, "extractImageChips", ExtractImageChips);
 	Nan::SetMethod(target, "tileImages", TileImages);
+	Nan::SetMethod(target, "jitterImage", JitterImage);
+	Nan::SetMethod(target, "mean", Mean);
+	Nan::SetMethod(target, "distance", Distance);
 };
 
 NAN_METHOD(Utils::Load_Image) {
@@ -87,7 +91,7 @@ NAN_METHOD(Utils::ResizeImage) {
 };
 
 NAN_METHOD(Utils::HitEnterToContinue) {
-	std::cin.get();
+	std::getchar();
 };
 
 NAN_METHOD(Utils::GetFaceChipDetails) {
@@ -138,4 +142,53 @@ NAN_METHOD(Utils::TileImages) {
 	);
 	dlib::matrix<dlib::rgb_pixel> tileImages = dlib::tile_images(face_chips);
 	info.GetReturnValue().Set(ImageRGB::Converter::wrap(tileImages));
+};
+
+NAN_METHOD(Utils::JitterImage) {
+	dlib::matrix<dlib::rgb_pixel> img;
+	int numJitters;
+	FF_TRY_UNWRAP_ARGS(
+		"JitterImage",
+		ImageRGB::Converter::arg(0, &img, info)
+		|| IntConverter::arg(1, &numJitters, info)
+	);
+
+	dlib::rand rnd; 
+	std::vector<dlib::matrix<dlib::rgb_pixel>> out;
+	for (int i = 0; i < numJitters; i++)
+		out.push_back(dlib::jitter_image(img, rnd));
+	info.GetReturnValue().Set(ObjectArrayConverter<ImageRGB, dlib::matrix<dlib::rgb_pixel>>::wrap(out));
+};
+
+NAN_METHOD(Utils::Mean) {
+	std::vector<dlib::matrix<double>> arr;
+	bool didThrow = ObjectArrayConverter<Array, dlib::matrix<double>>::arg(0, &arr, info);
+	FF_TRY_UNWRAP_ARGS(
+		"Mean",
+		didThrow
+	);
+
+	dlib::matrix<double> mean = dlib::matrix_cast<double>(dlib::mean(dlib::mat(arr)));
+	info.GetReturnValue().Set(Array::Converter::wrap(mean));
+};
+
+NAN_METHOD(Utils::Distance) {
+	dlib::matrix<double> arr1, arr2;
+	FF_TRY_UNWRAP_ARGS(
+		"Mean",
+		Array::Converter::arg(0, &arr1, info)
+		|| Array::Converter::arg(1, &arr2, info)
+	);
+
+	if (arr1.size() != arr2.size()) {
+		FF_RETHROW("Utils::Distance - arrays must have same size");
+	}
+
+	std::vector<double> vec1 = Array::toVec(arr1), vec2 = Array::toVec(arr2);
+	double distance = 0.0;
+	for (int i = 0; i < vec1.size(); i++) {
+		double diff = vec1.at(i) - vec2.at(i);
+		distance += diff * diff;
+	}
+	info.GetReturnValue().Set(std::sqrt(distance));
 };

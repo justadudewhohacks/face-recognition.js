@@ -17,6 +17,7 @@ NAN_MODULE_INIT(ImageWindow::Init) {
 	Nan::SetPrototypeMethod(ctor, "clearOverlay", ClearOverlay); 
 	Nan::SetPrototypeMethod(ctor, "addOverlay", AddOverlay);
 	Nan::SetPrototypeMethod(ctor, "renderFaceDetections", RenderFaceDetections);
+	Nan::SetPrototypeMethod(ctor, "close", Close);
 
   target->Set(Nan::New("ImageWindow").ToLocalChecked(), ctor->GetFunction());
 };
@@ -79,4 +80,8 @@ NAN_METHOD(ImageWindow::RenderFaceDetections) {
 		didThrow
 	);
 	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.add_overlay(dlib::render_face_detections(detections));
+};
+
+NAN_METHOD(ImageWindow::Close) {
+	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.close_window();
 };

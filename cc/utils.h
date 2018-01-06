@@ -15,6 +15,9 @@ public:
 	static NAN_METHOD(GetFaceChipDetails);
 	static NAN_METHOD(ExtractImageChips);
 	static NAN_METHOD(TileImages);
+	static NAN_METHOD(JitterImage);
+	static NAN_METHOD(Mean);
+	static NAN_METHOD(Distance);
 };
 
 #endif
