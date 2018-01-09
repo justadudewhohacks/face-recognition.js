@@ -7,6 +7,9 @@ NAN_MODULE_INIT(ImageGray::Init) {
   constructor.Reset(ctor);
   ctor->InstanceTemplate()->SetInternalFieldCount(1);
   ctor->SetClassName(Nan::New("ImageGray").ToLocalChecked());
+  Nan::SetAccessor(ctor->InstanceTemplate(), Nan::New("rows").ToLocalChecked(), GetRows);
+  Nan::SetAccessor(ctor->InstanceTemplate(), Nan::New("cols").ToLocalChecked(), GetCols);
+
   target->Set(Nan::New("ImageGray").ToLocalChecked(), ctor->GetFunction());
 };
 

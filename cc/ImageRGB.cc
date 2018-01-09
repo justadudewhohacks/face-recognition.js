@@ -9,6 +9,8 @@ NAN_MODULE_INIT(ImageRGB::Init) {
   ctor->SetClassName(Nan::New("ImageRGB").ToLocalChecked());
 
 	Nan::SetPrototypeMethod(ctor, "toGray", ToGray);
+	Nan::SetAccessor(ctor->InstanceTemplate(), Nan::New("rows").ToLocalChecked(), GetRows);
+	Nan::SetAccessor(ctor->InstanceTemplate(), Nan::New("cols").ToLocalChecked(), GetCols);
 
   target->Set(Nan::New("ImageRGB").ToLocalChecked(), ctor->GetFunction());
 };
