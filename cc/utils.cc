@@ -8,6 +8,7 @@
 
 NAN_MODULE_INIT(Utils::Init) {
 	Nan::SetMethod(target, "loadImage", Load_Image);
+	Nan::SetMethod(target, "saveImage", Save_Image);
 	Nan::SetMethod(target, "pyramidUp", PyramidUp);
 	Nan::SetMethod(target, "resizeImage", ResizeImage); 
 	Nan::SetMethod(target, "hitEnterToContinue", HitEnterToContinue);
@@ -37,6 +38,39 @@ NAN_METHOD(Utils::Load_Image) {
 	}
 
 	info.GetReturnValue().Set(ImageRGB::Converter::wrap(img));
+};
+
+NAN_METHOD(Utils::Save_Image) {
+	bool isGray = ImageGray::Converter::hasInstance(info[1]);
+
+	std::string imgPath;
+	dlib::matrix<unsigned char> imgGray;
+	dlib::matrix<dlib::rgb_pixel> img;
+	bool isJpeg = false;
+	FF_TRY_UNWRAP_ARGS(
+		"Save_Image",
+		StringConverter::arg(0, &imgPath, info)
+		|| (isGray && ImageGray::Converter::arg(1, &imgGray, info))
+		|| (!isGray && ImageRGB::Converter::arg(1, &img, info))
+		|| BoolConverter::optArg(2, &isJpeg, info)
+	);
+
+	if (isGray) {
+		if (isJpeg) {
+			dlib::save_jpeg(imgGray, imgPath);
+		}
+		else {
+			dlib::save_png(imgGray, imgPath);
+		}
+	}
+	else {
+		if (isJpeg) {
+			dlib::save_jpeg(img, imgPath);
+		}
+		else {
+			dlib::save_png(img, imgPath);
+		}
+	}
 };
 
 NAN_METHOD(Utils::PyramidUp) {

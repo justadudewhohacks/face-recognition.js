@@ -12,7 +12,7 @@ ensureAppdataDirExists()
 const trainedModelFile = 'faceRecognition2Model_150.json'
 const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile)
 
-const dataPath = path.resolve('./data/facerec')
+const dataPath = path.resolve('./data/faces')
 const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart']
 
 const detector = fr.FaceDetector()
@@ -49,8 +49,10 @@ const faces = detector.getFacesFromLocations(bbtThemeImg, faceRects, 150)
 const win = new fr.ImageWindow()
 win.setImage(bbtThemeImg)
 drawRects(win, faceRects)
+
+const unknownThreshold = 0.6
 faceRects.forEach((rect, i) => {
-  const prediction = recognizer.predictBest(faces[i])
+  const prediction = recognizer.predictBest(faces[i], unknownThreshold)
   win.addOverlay(rect, `${prediction.className} (${prediction.distance})`)
 })
 fr.hitEnterToContinue()
