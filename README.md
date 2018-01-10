@@ -22,9 +22,14 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 
 ## Install
 
-### Requirements
+### Linux and OSX
 - cmake
-- windows users will need VS2017 build tools (not Visual Studio 2017) -> https://www.visualstudio.com/de/downloads/
+- libx11 for the dlib GUI (`sudo apt-get install libx11-dev`)
+- libpng for reading images (`sudo apt-get install libpng-dev`)
+
+### Windows
+- cmake
+- VS2017 build tools (not Visual Studio 2017) -> https://www.visualstudio.com/de/downloads/
 
 ### Auto build
 Installing the package will build dlib for you and download the models. Note, this might take some time.

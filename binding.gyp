@@ -50,7 +50,8 @@
 				"-std=c++11",
 				"-stdlib=libc++"
 			],
-			"GCC_ENABLE_CPP_EXCEPTIONS": "YES"
+			"GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+			"GCC_ENABLE_CPP_RTTI": "YES"
 		},
 
 		"conditions": [
