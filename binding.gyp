@@ -41,7 +41,7 @@
 		"cflags_cc!": [
 
 			# dlib requires run-time type information
-			#"-fno-rtti",
+			"-fno-rtti",
 
 			"-fno-exceptions"
 		],

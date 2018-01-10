@@ -13,7 +13,7 @@ public:
 	static NAN_METHOD(GetData);
 
 	static NAN_GETTER(GetLength) {
-		info.GetReturnValue().Set(Converter::unwrap(info.This()).size());
+		info.GetReturnValue().Set((int)Converter::unwrap(info.This()).size());
 	}
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
