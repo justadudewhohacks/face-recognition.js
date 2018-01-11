@@ -7,6 +7,7 @@ node_js:
 sudo: required
 
 before_install:
+  - sudo apt-get -qq update
   # install cmake
   - wget http://www.cmake.org/files/v3.4/cmake-3.4.1.tar.gz
   - tar -xvzf cmake-3.4.1.tar.gz
@@ -16,9 +17,9 @@ before_install:
   - cd ..
   - cmake --version
   # install libx11 (for dlib gui)
-  - apt-get install libx11-dev
+  - sudo apt-get install libx11-dev
   # install libpng
-  - apt-get install libpng-dev
+  - sudo apt-get install libpng-dev
 
 install:
   - npm install
