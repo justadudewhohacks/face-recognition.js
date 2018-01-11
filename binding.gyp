@@ -33,10 +33,7 @@
 		],
 
 		"cflags" : [
-			"-std=c++11",
-
-			# relocation R_X86_64_32S...
-			"-fPIC"
+			"-std=c++11"
 		],
 		"cflags!" : [
 			"-fno-exceptions"
