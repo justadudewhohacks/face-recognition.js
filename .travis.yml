@@ -1,0 +1,28 @@
+language: node_js
+
+node_js:
+  - '6'
+  - '9'
+
+sudo: required
+
+before_install:
+  - sudo apt-get -qq update
+  # install cmake
+  - wget http://www.cmake.org/files/v3.4/cmake-3.4.1.tar.gz
+  - tar -xvzf cmake-3.4.1.tar.gz
+  - cd cmake-3.4.1/
+  - ./configure
+  - make
+  - cd ..
+  - cmake --version
+  # install libx11 (for dlib gui)
+  - sudo apt-get install libx11-dev
+  # install libpng
+  - sudo apt-get install libpng-dev
+
+install:
+  - npm install
+
+script:
+  - npm test
