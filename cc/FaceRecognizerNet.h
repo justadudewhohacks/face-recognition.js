@@ -38,8 +38,10 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	anet_type* getNativeObjectPtr() { return &net; }
 	anet_type getNativeObject() { return net; }
+	void setNativeObject(anet_type net) {
+		this->net = net;
+	}
 
 	typedef InstanceConverter<FaceRecognizerNet, anet_type> Converter;
 

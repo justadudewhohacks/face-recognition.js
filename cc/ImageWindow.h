@@ -11,7 +11,11 @@ public:
 
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(New);
+
+	template<class PT, class CT>
+	static void setImage(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(SetImage);
+
 	static NAN_METHOD(SetSize);
 	static NAN_METHOD(ClearOverlay);
 	static NAN_METHOD(AddOverlay);

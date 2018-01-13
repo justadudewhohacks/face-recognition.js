@@ -18,6 +18,7 @@
 			"cc/index.cc",
 			"cc/ImageRGB.cc",
 			"cc/ImageGray.cc",
+			"cc/CvImage.cc",
 			"cc/Rect.cc",
 			"cc/MmodRect.cc",
 			"cc/FullObjectDetection.cc",

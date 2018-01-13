@@ -1,6 +1,7 @@
 #include "ImageWindow.h"
 #include "ImageRGB.h"
 #include "ImageGray.h"
+#include "CvImage.h"
 #include "Rect.h"
 #include "FullObjectDetection.h"
 
@@ -28,22 +29,26 @@ NAN_METHOD(ImageWindow::New) {
 	info.GetReturnValue().Set(info.Holder());
 };
 
-NAN_METHOD(ImageWindow::SetImage) {
-	bool isGray = ImageGray::Converter::hasInstance(info[0]);
-
-	dlib::matrix<unsigned char> imgGray;
-	dlib::matrix<dlib::rgb_pixel> img;
+template<class PT, class CT>
+void ImageWindow::setImage(Nan::NAN_METHOD_ARGS_TYPE info) {
+	dlib::matrix<PT> img;
 	FF_TRY_UNWRAP_ARGS(
 		"ImageWindow::SetImage",
-		(isGray && ImageGray::Converter::arg(0, &imgGray, info))
-		|| ImageRGB::Converter::arg(0, &img, info)
+		CT::Converter::arg(0, &img, info)
 	);
 
-	if (isGray) {
-		Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.set_image(imgGray);
+	Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.set_image(img);
+};
+
+NAN_METHOD(ImageWindow::SetImage) {
+	if (ImageGray::Converter::hasInstance(info[0])) {
+		setImage<unsigned char, ImageGray>(info);
 	}
-	else {
-		Nan::ObjectWrap::Unwrap<ImageWindow>(info.This())->win.set_image(img);
+	else if (ImageRGB::Converter::hasInstance(info[0])) {
+		setImage<dlib::rgb_pixel, ImageRGB>(info);
+	}
+	else if (CvImage::Converter::hasInstance(info[0])) {
+		setImage<dlib::bgr_pixel, CvImage>(info);
 	}
 };
 

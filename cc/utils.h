@@ -10,8 +10,15 @@ public:
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(Load_Image);
 	static NAN_METHOD(Save_Image);
+
+	template<class PT, class CT> 
+	static void pyramidUp(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(PyramidUp);
+
+	template<class PT, class CT> 
+	static void resizeImage(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(ResizeImage);
+
 	static NAN_METHOD(HitEnterToContinue);
 	static NAN_METHOD(GetFaceChipDetails);
 	static NAN_METHOD(ExtractImageChips);

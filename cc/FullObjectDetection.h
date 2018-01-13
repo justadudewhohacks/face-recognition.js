@@ -22,8 +22,10 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	dlib::full_object_detection* getNativeObjectPtr() { return &detection; }
 	dlib::full_object_detection getNativeObject() { return detection; }
+	void setNativeObject(dlib::full_object_detection detection) {
+		this->detection = detection;
+	}
 
 	typedef InstanceConverter<FullObjectDetection, dlib::full_object_detection> Converter;
 

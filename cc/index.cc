@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "ImageRGB.h"
 #include "ImageGray.h"
+#include "CvImage.h"
 #include "Rect.h"
 #include "MmodRect.h"
 #include "FullObjectDetection.h"
@@ -17,6 +18,7 @@
 NAN_MODULE_INIT(InitModule) {
 	ImageRGB::Init(target);
 	ImageGray::Init(target);
+	CvImage::Init(target);
 	Rect::Init(target);
 	MmodRect::Init(target);
 	FullObjectDetection::Init(target);

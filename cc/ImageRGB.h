@@ -23,8 +23,10 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	dlib::matrix<dlib::rgb_pixel>* getNativeObjectPtr() { return &img; }
 	dlib::matrix<dlib::rgb_pixel> getNativeObject() { return img; }
+	void setNativeObject(dlib::matrix<dlib::rgb_pixel> img) {
+		this->img = img;
+	}
 
 	typedef InstanceConverter<ImageRGB, dlib::matrix<dlib::rgb_pixel>> Converter;
 
