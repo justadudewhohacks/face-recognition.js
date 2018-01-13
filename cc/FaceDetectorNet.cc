@@ -1,5 +1,6 @@
 #include "FaceDetectorNet.h"
 #include "ImageRGB.h"
+#include "CvImage.h"
 #include "MmodRect.h"
 
 Nan::Persistent<v8::FunctionTemplate> FaceDetectorNet::constructor;
@@ -27,15 +28,27 @@ NAN_METHOD(FaceDetectorNet::New) {
 	info.GetReturnValue().Set(info.Holder());
 };
 
-NAN_METHOD(FaceDetectorNet::Detect) {
-	dlib::matrix<dlib::rgb_pixel> img;
+template<class PT, class CT>
+void FaceDetectorNet::detect(Nan::NAN_METHOD_ARGS_TYPE info) {
+	dlib::matrix<PT> img;
 	FF_TRY_UNWRAP_ARGS(
 		"FaceDetectorNet::Detect",
-		ImageRGB::Converter::arg(0, &img, info)
+		CT::Converter::arg(0, &img, info)
 	);
-
 	net_type net = FaceDetectorNet::Converter::unwrap(info.This());
-	std::vector<dlib::mmod_rect> rects = net(img);
+
+	dlib::matrix<dlib::rgb_pixel> rgbImg;
+	dlib::assign_image(rgbImg, img);
+	std::vector<dlib::mmod_rect> rects = net(rgbImg);
 
 	info.GetReturnValue().Set(ObjectArrayConverter<MmodRect, dlib::mmod_rect>::wrap(rects));
+};
+
+NAN_METHOD(FaceDetectorNet::Detect) {
+	if (CvImage::Converter::hasInstance(info[0])) {
+		detect<dlib::bgr_pixel, CvImage>(info);
+	}
+	else {
+		detect<dlib::rgb_pixel, ImageRGB>(info);
+	}
 };

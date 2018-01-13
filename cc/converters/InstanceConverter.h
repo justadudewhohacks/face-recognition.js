@@ -18,13 +18,9 @@ public:
 		return Nan::ObjectWrap::Unwrap<Clazz>(jsVal->ToObject())->getNativeObject();
 	}
 
-	static T* unwrapPtr(v8::Local<v8::Value> jsVal) {
-		return Nan::ObjectWrap::Unwrap<Clazz>(jsVal->ToObject())->getNativeObjectPtr();
-	}
-
 	static v8::Local<v8::Value> wrap(T val) {
 		v8::Local<v8::Object> jsObj = Nan::NewInstance(Nan::New(Clazz::constructor)->GetFunction()).ToLocalChecked();
-		*Nan::ObjectWrap::Unwrap<Clazz>(jsObj)->getNativeObjectPtr() = val;
+		Nan::ObjectWrap::Unwrap<Clazz>(jsObj)->setNativeObject(val);
 		return jsObj;
 	}
 };

@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "ImageRGB.h"
 #include "ImageGray.h"
+#include "CvImage.h"
 #include "FullObjectDetection.h"
 #include "ChipDetails.h"
 #include "Array.h"
@@ -73,54 +74,57 @@ NAN_METHOD(Utils::Save_Image) {
 	}
 };
 
-NAN_METHOD(Utils::PyramidUp) {
-	bool isGray = ImageGray::Converter::hasInstance(info[0]);
-
-	dlib::matrix<unsigned char> imgGray;
-	dlib::matrix<dlib::rgb_pixel> img;
+template<class PT, class CT>
+void Utils::pyramidUp(Nan::NAN_METHOD_ARGS_TYPE info) {
+	dlib::matrix<PT> img;
 	FF_TRY_UNWRAP_ARGS(
 		"PyramidUp",
-		(isGray && ImageGray::Converter::arg(0, &imgGray, info))
-		|| ImageRGB::Converter::arg(0, &img, info)
+		CT::Converter::arg(0, &img, info)
 	);
 
-	if (isGray) {
-		dlib::matrix<unsigned char> outGray;
-		dlib::assign_image(outGray, imgGray);
-		dlib::pyramid_up(outGray);
-		info.GetReturnValue().Set(ImageGray::Converter::wrap(outGray));
-	} else {
-		dlib::matrix<dlib::rgb_pixel> out;
-		dlib::assign_image(out, img);
-		dlib::pyramid_up(out);
-		info.GetReturnValue().Set(ImageRGB::Converter::wrap(out));
+	dlib::matrix<PT> out;
+	dlib::assign_image(out, img);
+	dlib::pyramid_up(out);
+	info.GetReturnValue().Set(CT::Converter::wrap(out));
+};
+
+NAN_METHOD(Utils::PyramidUp) {
+	if (ImageGray::Converter::hasInstance(info[0])) {
+		pyramidUp<unsigned char, ImageGray>(info);
+	}
+	else if (CvImage::Converter::hasInstance(info[0])) {
+		pyramidUp<dlib::bgr_pixel, CvImage>(info);
+	}
+	else {
+		pyramidUp<dlib::rgb_pixel, ImageRGB>(info);
 	}
 };
 
-NAN_METHOD(Utils::ResizeImage) {
-	bool isGray = ImageGray::Converter::hasInstance(info[0]);
 
-	dlib::matrix<unsigned char> imgGray;
-	dlib::matrix<dlib::rgb_pixel> img;
+template<class PT, class CT>
+void Utils::resizeImage(Nan::NAN_METHOD_ARGS_TYPE info) {
+	dlib::matrix<PT> img;
 	double scale;
 	FF_TRY_UNWRAP_ARGS(
 		"ResizeImage",
-		(isGray && ImageGray::Converter::arg(0, &imgGray, info))
-		|| ImageRGB::Converter::arg(0, &img, info)
+		CT::Converter::arg(0, &img, info)
 		|| DoubleConverter::arg(1, &scale, info)
 	);
+	dlib::matrix<PT> out;
+	dlib::assign_image(out, img);
+	dlib::resize_image(scale, out);
+	info.GetReturnValue().Set(CT::Converter::wrap(out));
+};
 
-	if (isGray) {
-		dlib::matrix<unsigned char> outGray;
-		dlib::assign_image(outGray, imgGray);
-		dlib::resize_image(scale, outGray);
-		info.GetReturnValue().Set(ImageGray::Converter::wrap(outGray));
+NAN_METHOD(Utils::ResizeImage) {
+	if (ImageGray::Converter::hasInstance(info[0])) {
+		resizeImage<unsigned char, ImageGray>(info);
+	}
+	else if (CvImage::Converter::hasInstance(info[0])) {
+		resizeImage<dlib::bgr_pixel, CvImage>(info);
 	}
 	else {
-		dlib::matrix<dlib::rgb_pixel> out;
-		dlib::assign_image(out, img);
-		dlib::resize_image(scale, out);
-		info.GetReturnValue().Set(ImageRGB::Converter::wrap(out));
+		resizeImage<dlib::rgb_pixel, ImageRGB>(info);
 	}
 };
 

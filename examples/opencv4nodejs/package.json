@@ -1,0 +1,9 @@
+{
+  "name": "face-recogntion-with-opencv4nodejs",
+  "version": "0.0.0",
+  "author": "justadudewhohacks",
+  "license": "MIT",
+  "dependencies": {
+    "opencv4nodejs": "^2.33.0"
+  }
+}

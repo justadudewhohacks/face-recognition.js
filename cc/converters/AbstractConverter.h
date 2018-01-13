@@ -28,10 +28,6 @@ public:
 		return ConverterType::unwrap(jsVal);
 	}
 
-	static T* unwrapPtr(v8::Local<v8::Value> jsVal) {
-		return ConverterType::unwrapPtr(jsVal);
-	}
-
 	static v8::Local<v8::Value> wrap(T val) {
 		return ConverterType::wrap(val);
 	}
@@ -50,10 +46,6 @@ class AbstractConverter {
 public:
 	static T unwrap(v8::Local<v8::Value> jsVal) {
 		return ConverterType::unwrap(jsVal);
-	}
-
-	static T* unwrapPtr(v8::Local<v8::Value> jsVal) {
-		return ConverterType::unwrapPtr(jsVal);
 	}
 
 	static v8::Local<v8::Value> wrap(T val) {

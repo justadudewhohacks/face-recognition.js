@@ -11,7 +11,10 @@ exports.rescaleRect = (rect, f) =>
   new fr.Rect(rect.left * f, rect.top * f, rect.right * f, rect.bottom * f)
 
 
-const appdataPath = path.resolve('./appdata')
+const dataPath = path.resolve(__dirname, './data')
+const appdataPath = path.resolve(__dirname, './appdata')
+
+exports.getDataPath = () => dataPath
 
 exports.getAppdataPath = () => appdataPath
 

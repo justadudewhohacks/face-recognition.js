@@ -1,5 +1,6 @@
 #include "FaceRecognizerNet.h"
 #include "ImageRGB.h"
+#include "CvImage.h"
 #include "MmodRect.h"
 #include "Array.h"
 
@@ -28,15 +29,27 @@ NAN_METHOD(FaceRecognizerNet::New) {
 	info.GetReturnValue().Set(info.Holder());
 };
 
-NAN_METHOD(FaceRecognizerNet::ComputeFaceDescriptor) {
-	dlib::matrix<dlib::rgb_pixel> face;
+template<class PT, class CT>
+void FaceRecognizerNet::computeFaceDescriptor(Nan::NAN_METHOD_ARGS_TYPE info) {
+	dlib::matrix<PT> face;
 	FF_TRY_UNWRAP_ARGS(
 		"FaceRecognizerNet::ComputeFaceDescriptor",
-		ImageRGB::Converter::arg(0, &face, info)
+		CT::Converter::arg(0, &face, info)
 	);
 
 	anet_type net = FaceRecognizerNet::Converter::unwrap(info.This());
 
-	dlib::matrix<double> descriptor = dlib::matrix_cast<double>(net(std::vector<dlib::matrix<dlib::rgb_pixel>>(1, face)).at(0));
+	dlib::matrix<dlib::rgb_pixel> rgbFace;
+	dlib::assign_image(rgbFace, face);
+	dlib::matrix<double> descriptor = dlib::matrix_cast<double>(net(std::vector<dlib::matrix<dlib::rgb_pixel>>(1, rgbFace)).at(0));
 	info.GetReturnValue().Set(Array::Converter::wrap(descriptor));
+};
+
+NAN_METHOD(FaceRecognizerNet::ComputeFaceDescriptor) {
+	if (CvImage::Converter::hasInstance(info[0])) {
+		computeFaceDescriptor<dlib::bgr_pixel, CvImage>(info);
+	}
+	else {
+		computeFaceDescriptor<dlib::rgb_pixel, ImageRGB>(info);
+	}
 };

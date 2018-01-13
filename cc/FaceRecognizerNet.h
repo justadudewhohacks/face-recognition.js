@@ -34,12 +34,17 @@ public:
 
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(New);
+
+	template<class PT, class CT>
+	static void computeFaceDescriptor(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(ComputeFaceDescriptor);
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	anet_type* getNativeObjectPtr() { return &net; }
 	anet_type getNativeObject() { return net; }
+	void setNativeObject(anet_type net) {
+		this->net = net;
+	}
 
 	typedef InstanceConverter<FaceRecognizerNet, anet_type> Converter;
 

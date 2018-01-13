@@ -18,8 +18,10 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	dlib::matrix<double>* getNativeObjectPtr() { return &arr; }
 	dlib::matrix<double> getNativeObject() { return arr; }
+	void setNativeObject(dlib::matrix<double> arr) {
+		this->arr = arr;
+	}
 
 	typedef InstanceConverter<Array, dlib::matrix<double>> Converter;
 

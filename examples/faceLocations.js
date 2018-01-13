@@ -3,6 +3,8 @@ const {
   drawRects
 } = require('./commons')
 
+fr.winKillProcessOnExit()
+
 const detector = fr.FaceDetector()
 
 const lenna = fr.loadImage('./data/Lenna.png')

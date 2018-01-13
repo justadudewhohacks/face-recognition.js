@@ -21,8 +21,10 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
-	dlib::matrix<unsigned char>* getNativeObjectPtr() { return &img; }
 	dlib::matrix<unsigned char> getNativeObject() { return img; }
+	void setNativeObject(dlib::matrix<unsigned char> img) {
+		this->img = img;
+	}
 
 	typedef InstanceConverter<ImageGray, dlib::matrix<unsigned char>> Converter;
 
