@@ -92,11 +92,11 @@ NAN_METHOD(Utils::PyramidUp) {
 	if (ImageGray::Converter::hasInstance(info[0])) {
 		pyramidUp<unsigned char, ImageGray>(info);
 	}
-	else if (ImageRGB::Converter::hasInstance(info[0])) {
-		pyramidUp<dlib::rgb_pixel, ImageRGB>(info);
-	}
 	else if (CvImage::Converter::hasInstance(info[0])) {
 		pyramidUp<dlib::bgr_pixel, CvImage>(info);
+	}
+	else {
+		pyramidUp<dlib::rgb_pixel, ImageRGB>(info);
 	}
 };
 
@@ -120,11 +120,11 @@ NAN_METHOD(Utils::ResizeImage) {
 	if (ImageGray::Converter::hasInstance(info[0])) {
 		resizeImage<unsigned char, ImageGray>(info);
 	}
-	else if (ImageRGB::Converter::hasInstance(info[0])) {
-		resizeImage<dlib::rgb_pixel, ImageRGB>(info);
-	}
 	else if (CvImage::Converter::hasInstance(info[0])) {
 		resizeImage<dlib::bgr_pixel, CvImage>(info);
+	}
+	else {
+		resizeImage<dlib::rgb_pixel, ImageRGB>(info);
 	}
 };
 

@@ -6,6 +6,7 @@ const {
   ensureAppdataDirExists
 } = require('./commons')
 
+fr.winKillProcessOnExit()
 ensureAppdataDirExists()
 
 const numTrainFaces = 5

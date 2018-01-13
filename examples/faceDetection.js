@@ -1,5 +1,7 @@
 const { fr } = require('./commons')
 
+fr.winKillProcessOnExit()
+
 const detector = fr.FaceDetector()
 
 const img = fr.loadImage('./data/got.jpg')

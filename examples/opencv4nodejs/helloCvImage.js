@@ -1,8 +1,8 @@
 const path = require('path')
 const cv = require('opencv4nodejs')
+const fr = require('../../').withCv(cv)
 
 const {
-  fr,
   getDataPath
 } = require('../commons')
 

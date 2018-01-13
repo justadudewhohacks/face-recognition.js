@@ -4,7 +4,6 @@
   "author": "justadudewhohacks",
   "license": "MIT",
   "dependencies": {
-    "opencv4nodejs": "^2.33.0",
-    "segfault-handler": "^1.0.0"
+    "opencv4nodejs": "^2.33.0"
   }
 }

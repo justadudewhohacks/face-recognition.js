@@ -7,6 +7,7 @@ const {
   ensureAppdataDirExists
 } = require('./commons')
 
+fr.winKillProcessOnExit()
 ensureAppdataDirExists()
 
 const trainedModelFile = 'faceRecognition2Model_150.json'

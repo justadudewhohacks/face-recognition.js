@@ -20,6 +20,9 @@ public:
 
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(New);
+
+	template<class PT, class CT>
+	static void detect(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(Detect);
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
