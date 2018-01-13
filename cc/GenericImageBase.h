@@ -63,45 +63,49 @@ private:
 	char* data = 0;
 };
 
-template <typename T>
-const dlib::matrix_op<dlib::op_array2d_to_mat<GenericImageBase<T> > > mat(const GenericImageBase<T>& m) {
-	typedef dlib::op_array2d_to_mat<GenericImageBase<T> > op;
-	return dlib::matrix_op<op>(op(m));
-}
+namespace dlib {
 
-template <typename T>
-struct dlib::image_traits<GenericImageBase<T> > {
-	typedef T pixel_type;
-};
+	template <typename T>
+	const matrix_op<op_array2d_to_mat<GenericImageBase<T> > > mat(const GenericImageBase<T>& m) {
+		typedef op_array2d_to_mat<GenericImageBase<T> > op;
+		return matrix_op<op>(op(m));
+	}
 
-template <typename T>
-inline long num_rows(const GenericImageBase<T>& img) {
-	return img.nr();
-}
+	template <typename T>
+	struct image_traits<GenericImageBase<T> > {
+		typedef T pixel_type;
+	};
 
-template <typename T>
-inline long num_columns(const GenericImageBase<T>& img) {
-	return img.nc();
-}
+	template <typename T>
+	inline long num_rows(const GenericImageBase<T>& img) {
+		return img.nr();
+	}
 
-template <typename T>
-inline void* image_data(GenericImageBase<T>& img) {
-	if (img.size() != 0)
-		return &img[0][0];
-	else
-		return 0;
-}
+	template <typename T>
+	inline long num_columns(const GenericImageBase<T>& img) {
+		return img.nc();
+	}
 
-template <typename T> inline const void* image_data(const GenericImageBase<T>& img) {
-	if (img.size() != 0)
-		return &img[0][0];
-	else
-		return 0;
-}
+	template <typename T>
+	inline void* image_data(GenericImageBase<T>& img) {
+		if (img.size() != 0)
+			return &img[0][0];
+		else
+			return 0;
+	}
 
-template <typename T>
-inline long width_step(const GenericImageBase<T>& img) {
-	return img.width_step();
+	template <typename T> inline const void* image_data(const GenericImageBase<T>& img) {
+		if (img.size() != 0)
+			return &img[0][0];
+		else
+			return 0;
+	}
+
+	template <typename T>
+	inline long width_step(const GenericImageBase<T>& img) {
+		return img.width_step();
+	}
+
 }
 
 #endif
