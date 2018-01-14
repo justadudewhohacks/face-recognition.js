@@ -7,7 +7,13 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 
 ![rec](https://user-images.githubusercontent.com/31125521/34744199-b2690bae-f58c-11e7-8058-47896bf78b75.gif)
 
-## Examples
+* **[Examples](#examples)**
+* **[Install](#install)**
+* **[How to use](#how-to-use)**
+* **[With opencv4nodejs](#with-opencv4nodejs)**
+
+<a name="examples"></a>
+# Examples
 
 ### Face Detection
 
@@ -22,7 +28,10 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 ![landmark5](https://user-images.githubusercontent.com/31125521/34471086-63a74358-ef3f-11e7-9fe8-641bc8a3a2dd.jpg)
 ![landmark68](https://user-images.githubusercontent.com/31125521/34471087-63c3118c-ef3f-11e7-9e7c-a741bef3f4b2.jpg)
 
-## Install
+<a name="install"></a>
+# Install
+
+## Requirements
 
 ### Linux and OSX
 - cmake
@@ -33,13 +42,13 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 - cmake
 - VS2017 build tools (not Visual Studio 2017) -> https://www.visualstudio.com/de/downloads/
 
-### Auto build
+##  Auto build
 Installing the package will build dlib for you and download the models. Note, this might take some time.
 ``` bash
 npm install face-recognition
 ```
 
-### Manual build
+##  Manual build
 If you want to use an own build of <a href="https://github.com/davisking/dlib"><b>dlib</b></a>:
 - set DLIB_INCLUDE_DIR to the source directory of dlib
 - set DLIB_LIB_DIR to the file path to dlib.lib | dlib.so | dlib.dylib
@@ -49,7 +58,8 @@ If you set these environment variables, the package will use your own build inst
 npm install face-recognition
 ```
 
-## How to use
+<a name="how-to-use"></a>
+# How to use
 
 ``` javascript
 const fr = require('face-recognition')
@@ -107,7 +117,6 @@ const recognizer = fr.FaceRecognizer()
 ```
 
 Train the recognizer with face images of atleast two different persons:
-
 ``` javascript
 // arrays of face images, (use FaceDetector to detect and extract faces)
 const sheldonFaces = [ ... ]
@@ -128,7 +137,6 @@ recognizer.addFaces(howardFaces, 'howard', numJitters)
 ```
 
 Get the distances to each class:
-
 ``` javascript
 const predictions = recognizer.predict(sheldonFaceImage)
 console.log(predictions)
@@ -153,7 +161,6 @@ example output (the lower the distance, the higher the similarity):
 ```
 
 Or immediately get the best result:
-
 ``` javascript
 const bestPrediction = recognizer.predict(sheldonFaceImage)
 console.log(bestPrediction)
@@ -214,4 +221,41 @@ const win = new fr.ImageWindow()
 win.setImage(img)
 win.renderFaceDetections(shapes)
 fr.hitEnterToContinue()
+```
+
+<a name="with-opencv4nodejs"></a>
+# With opencv4nodejs
+
+In case you need to do some image processing, you can also use this package with <a href="https://github.com/justadudewhohacks/opencv4nodejs"><b>opencv4nodejs</b></a>. Also see <a href="https://github.com/justadudewhohacks/face-recognition.js/tree/master/examples/opencv4nodejs"><b>examples</b></a> for using face-recognition.js with opencv4nodejs.
+
+``` javascript
+const cv = require('opencv4nodejs')
+const fr = require('face-recognition').withCv(cv)
+```
+
+Now you can simple convert a cv.Mat to fr.CvImage:
+``` javascript
+const cvMat = cv.imread('image.png')
+const cvImg = fr.CvImage(cvMat)
+```
+
+Display it:
+``` javascript
+const win = new fr.ImageWindow()
+win.setImage(cvImg)
+fr.hitEnterToContinue()
+```
+
+Resizing:
+``` javascript
+const resized1 = fr.resizeImage(cvImg, 0.5)
+const resized2 = fr.pyramidUp(cvImg)
+```
+
+Detecting faces and retrieving them as cv.Mats:
+``` javascript
+const faceRects =  detector.locateFaces(cvImg)
+const faceMats = faceRects
+  .map(mmodRect => fr.toCvRect(mmodRect.rect))
+  .map(cvRect => mat.getRegion(cvRect).copy())
 ```
