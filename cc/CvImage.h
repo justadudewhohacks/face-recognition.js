@@ -1,4 +1,4 @@
-#include "converters/Converters.h"
+#include "Converters.h"
 #include "GenericImage.h"
 
 #ifndef __FACEREC_CVIMAGE_H__

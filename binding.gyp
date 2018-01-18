@@ -8,6 +8,7 @@
 		],
 		"include_dirs" : [
 			"<!(node -e \"require('nan')\")",
+			"<!(node -e \"require('native-node-utils')\")",
 			"<!@(node ./lib/includes.js)",
 			"cc"
 		],
