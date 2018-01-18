@@ -1,4 +1,4 @@
-#include "converters/Converters.h"
+#include "Converters.h"
 #include "dlib/matrix.h"
 
 #ifndef __FACEREC_IMAGEGRAY_H__
