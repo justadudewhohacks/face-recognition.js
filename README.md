@@ -10,6 +10,7 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 * **[Examples](#examples)**
 * **[Install](#install)**
 * **[How to use](#how-to-use)**
+* **[Async API](#async-api)**
 * **[With opencv4nodejs](#with-opencv4nodejs)**
 
 <a name="examples"></a>
@@ -86,7 +87,6 @@ win.addOverlay(rectangle)
 // pause program until key pressed
 fr.hitEnterToContinue()
 ```
-
 
 ### Face Detection
 
@@ -221,6 +221,51 @@ const win = new fr.ImageWindow()
 win.setImage(img)
 win.renderFaceDetections(shapes)
 fr.hitEnterToContinue()
+```
+
+<a name="async-api"></a>
+# Async API
+
+### Async Face Detection
+
+``` javascript
+const detector = fr.AsyncFaceDetector()
+
+detector.locateFaces(image)
+  .then((faceRectangles) => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
+
+detector.detectFaces(image)
+  .then((faceImages) => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
+```
+
+### Async Face Landmarks
+
+``` javascript
+const predictor = fr.FaceLandmark5Predictor()
+```
+
+``` javascript
+const predictor = fr.FaceLandmark68Predictor()
+```
+
+``` javascript
+Promise.all(faceRects.map(rect => predictor.predictAsync(img, rect)))
+  .then((shapes) => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
 ```
 
 <a name="with-opencv4nodejs"></a>
