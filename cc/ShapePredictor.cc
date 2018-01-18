@@ -12,6 +12,7 @@ NAN_MODULE_INIT(ShapePredictor::Init) {
 	ctor->SetClassName(Nan::New("ShapePredictor").ToLocalChecked());
 
 	Nan::SetPrototypeMethod(ctor, "predict", Predict);
+	Nan::SetPrototypeMethod(ctor, "predictAsync", PredictAsync);
 
 	target->Set(Nan::New("ShapePredictor").ToLocalChecked(), ctor->GetFunction());
 };
@@ -28,17 +29,43 @@ NAN_METHOD(ShapePredictor::New) {
 	info.GetReturnValue().Set(info.Holder());
 };
 
-NAN_METHOD(ShapePredictor::Predict) {
+struct ShapePredictor::PredictWorker : public SimpleWorker {
+public:
+	dlib::shape_predictor predictor;
+
+	PredictWorker(dlib::shape_predictor self) {
+		this->predictor = self;
+	}
+
 	dlib::matrix<dlib::rgb_pixel> img;
 	dlib::rectangle rect;
-	FF_TRY_UNWRAP_ARGS(
-		"ShapePredictor::Detect",
-		ImageRGB::Converter::arg(0, &img, info)
-		|| Rect::Converter::arg(1, &rect, info)
-	);
 
-	dlib::shape_predictor predictor = ShapePredictor::Converter::unwrap(info.This());
-	dlib::full_object_detection shape = predictor(img, rect);
-	info.GetReturnValue().Set(FullObjectDetection::Converter::wrap(shape));
+	dlib::full_object_detection shape;
+
+	const char* execute() {
+		shape = predictor(img, rect);
+		return "";
+	}
+
+	v8::Local<v8::Value> getReturnValue() {
+		return FullObjectDetection::Converter::wrap(shape);
+	}
+
+	bool unwrapRequiredArgs(Nan::NAN_METHOD_ARGS_TYPE info) {
+		return (
+			ImageRGB::Converter::arg(0, &img, info)
+			|| Rect::Converter::arg(1, &rect, info)
+		);
+	}
 };
 
+NAN_METHOD(ShapePredictor::Predict) {
+	PredictWorker worker(ShapePredictor::Converter::unwrap(info.This()));
+	FF_WORKER_SYNC("ShapePredictor::Predict", worker);
+	info.GetReturnValue().Set(worker.getReturnValue());
+}
+
+NAN_METHOD(ShapePredictor::PredictAsync) {
+	PredictWorker worker(ShapePredictor::Converter::unwrap(info.This()));
+	FF_WORKER_ASYNC("ShapePredictor::PredictAsync", PredictWorker, worker);
+}

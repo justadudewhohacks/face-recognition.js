@@ -18,7 +18,7 @@ describe('FaceDetector', () => {
     const lenna = fr.loadImage(path.resolve(dataDir, 'Lenna.png'))
 
     const faceSize = 150
-    const lennaFaces =  detector.detectFaces(lenna, faceSize)
+    const lennaFaces = detector.detectFaces(lenna, faceSize)
 
     expect(lennaFaces.length).to.equal(1)
     lennaFaces.forEach(f => expect(f).to.be.instanceOf(fr.ImageRGB))
@@ -30,7 +30,7 @@ describe('FaceDetector', () => {
     const got = fr.loadImage(path.resolve(dataDir, 'got.jpg'))
 
     const faceSize = 150
-    const gotFaces =  detector.detectFaces(got, faceSize)
+    const gotFaces = detector.detectFaces(got, faceSize)
 
     expect(gotFaces.length).to.equal(4)
     gotFaces.forEach(f => expect(f).to.be.instanceOf(fr.ImageRGB))
