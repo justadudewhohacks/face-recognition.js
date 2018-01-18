@@ -10,7 +10,10 @@ public:
 
 	static NAN_MODULE_INIT(Init);
 	static NAN_METHOD(New);
+
+	struct PredictWorker;
 	static NAN_METHOD(Predict);
+	static NAN_METHOD(PredictAsync);
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
