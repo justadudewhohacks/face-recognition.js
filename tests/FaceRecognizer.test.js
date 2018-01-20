@@ -3,6 +3,8 @@ const { expect } = require('chai')
 
 const fr = require('../')
 const { dataDir } = require('./commons')
+const AsyncFaceRecognizerTest = require('./FaceRecognizer/AsyncFaceRecognizerTest')
+const FaceRecognizerTest = require('./FaceRecognizer/FaceRecognizerTest')
 
 const facesPath = path.resolve(dataDir, 'faces')
 
@@ -25,74 +27,39 @@ function loadTestFaces() {
 }
 
 describe('FaceRecognizer', () => {
+  FaceRecognizerTest(
+    () => fr.FaceRecognizer(),
+    loadTrainFaces,
+    loadTestFaces
+  )
 
-  it('can be created', () => {
-    expect(
-      () => fr.FaceRecognizer()
-    ).to.not.throw()
-  })
+  AsyncFaceRecognizerTest(
+    () => fr.AsyncFaceRecognizer(),
+    loadTrainFaces,
+    loadTestFaces
+  )
 
-  it('can be trained', () => {
-    const recognizer = fr.FaceRecognizer()
-
-    const trainFaces = loadTrainFaces()
-    recognizer.addFaces(trainFaces.sheldon, 'sheldon')
-    recognizer.addFaces(trainFaces.raj, 'raj')
-
-    const modelState = recognizer.getDescriptorState()
-    expect(modelState).to.be.an('array').lengthOf(2)
-    expect(modelState).to.deep.have.members([
-      { className: 'sheldon', numFaces: 2 },
-      { className: 'raj', numFaces: 2 }
-    ])
-  })
-
-  it('predict', () => {
-    const recognizer = fr.FaceRecognizer()
+  it('can save and load the state', () => {
+    const recognizer1 = fr.FaceRecognizer()
+    const recognizer2 = fr.FaceRecognizer()
 
     const trainFaces = loadTrainFaces()
+    recognizer1.addFaces(trainFaces.sheldon, 'sheldon')
+    recognizer1.addFaces(trainFaces.raj, 'raj')
 
-    recognizer.addFaces(trainFaces.sheldon, 'sheldon')
-    recognizer.addFaces(trainFaces.raj, 'raj')
+    const state1 = recognizer1.serialize()
+    expect(state1).to.be.an('array').lengthOf(2)
+    state1.forEach((descs) => {
+      expect(descs.className).to.be.a('string')
+      expect(descs.faceDescriptors).to.be.an('array').lengthOf(2)
+      descs.faceDescriptors.forEach(fd => expect(fd).to.be.an('array').lengthOf(128))
+    })
 
-    const testFaces = loadTestFaces()
-
-    function getPrediction(predictions, className) {
-      const prediction = predictions.find(p => p.className === className)
-      expect(prediction).to.not.be.undefined
-      return prediction
-    }
-
-    const p1 = recognizer.predict(testFaces.sheldon)
-    expect(p1).to.be.an('array').lengthOf(2)
-    expect(p1.map(p => p.className)).to.contain('sheldon')
-    expect(p1.map(p => p.className)).to.contain('raj')
-    expect(getPrediction(p1, 'sheldon').distance).to.be.lessThan(getPrediction(p1, 'raj').distance)
-
-    const p2 = recognizer.predict(testFaces.raj)
-    expect(p2).to.be.an('array').lengthOf(2)
-    expect(p2.map(p => p.className)).to.contain('sheldon')
-    expect(p2.map(p => p.className)).to.contain('raj')
-    expect(getPrediction(p2, 'raj').distance).to.be.lessThan(getPrediction(p2, 'sheldon').distance)
+    recognizer2.load(state1)
+    expect(recognizer2.serialize()).to.deep.equal(state1)
+    expect(recognizer2.getDescriptorState()).to.be.an('array').lengthOf(2)
+    expect(recognizer2.getDescriptorState()).to.deep.equal(recognizer1.getDescriptorState())
   })
 
-  it('predictBest', () => {
-    const recognizer = fr.FaceRecognizer()
-
-    const trainFaces = loadTrainFaces()
-
-    recognizer.addFaces(trainFaces.sheldon, 'sheldon')
-    recognizer.addFaces(trainFaces.raj, 'raj')
-
-    const testFaces = loadTestFaces()
-
-    const p1 = recognizer.predictBest(testFaces.sheldon)
-    expect(p1).to.have.property('distance').to.be.above(0)
-    expect(p1).to.have.property('className').to.be.equal('sheldon')
-
-    const p2 = recognizer.predictBest(testFaces.raj)
-    expect(p2).to.have.property('distance').to.be.above(0)
-    expect(p2).to.have.property('className').to.be.equal('raj')
-  })
 })
 

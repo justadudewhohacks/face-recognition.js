@@ -25,6 +25,7 @@ describe('AsyncFaceDetector', () => {
 
         done()
       })
+      .catch(err => done(err))
   })
 
   it('detects multiple face', (done) => {
@@ -40,6 +41,7 @@ describe('AsyncFaceDetector', () => {
 
         done()
       })
+      .catch(err => done(err))
   })
 
 })

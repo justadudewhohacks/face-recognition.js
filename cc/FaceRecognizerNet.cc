@@ -1,6 +1,4 @@
 #include "FaceRecognizerNet.h"
-#include "ImageRGB.h"
-#include "CvImage.h"
 #include "MmodRect.h"
 #include "Array.h"
 
@@ -13,6 +11,7 @@ NAN_MODULE_INIT(FaceRecognizerNet::Init) {
 	ctor->SetClassName(Nan::New("FaceRecognizerNet").ToLocalChecked());
 
 	Nan::SetPrototypeMethod(ctor, "computeFaceDescriptor", ComputeFaceDescriptor);
+	Nan::SetPrototypeMethod(ctor, "computeFaceDescriptorAsync", ComputeFaceDescriptorAsync);
 
 	target->Set(Nan::New("FaceRecognizerNet").ToLocalChecked(), ctor->GetFunction());
 };
@@ -29,27 +28,57 @@ NAN_METHOD(FaceRecognizerNet::New) {
 	info.GetReturnValue().Set(info.Holder());
 };
 
+
 template<class PT, class CT>
-void FaceRecognizerNet::computeFaceDescriptor(Nan::NAN_METHOD_ARGS_TYPE info) {
+struct FaceRecognizerNet::ComputeFaceDescriptorWorker : public SimpleWorker {
+public:
+	anet_type net;
+
+	ComputeFaceDescriptorWorker(anet_type self) {
+		this->net = self;
+	}
+
 	dlib::matrix<PT> face;
-	FF_TRY_UNWRAP_ARGS(
-		"FaceRecognizerNet::ComputeFaceDescriptor",
-		CT::Converter::arg(0, &face, info)
-	);
+	dlib::matrix<double> descriptor;
 
-	anet_type net = FaceRecognizerNet::Converter::unwrap(info.This());
+	const char* execute() {
+		dlib::matrix<dlib::rgb_pixel> rgbFace;
+		dlib::assign_image(rgbFace, face);
+		descriptor = dlib::matrix_cast<double>(net(std::vector<dlib::matrix<dlib::rgb_pixel>>(1, rgbFace)).at(0));
+		return "";
+	}
 
-	dlib::matrix<dlib::rgb_pixel> rgbFace;
-	dlib::assign_image(rgbFace, face);
-	dlib::matrix<double> descriptor = dlib::matrix_cast<double>(net(std::vector<dlib::matrix<dlib::rgb_pixel>>(1, rgbFace)).at(0));
-	info.GetReturnValue().Set(Array::Converter::wrap(descriptor));
+	v8::Local<v8::Value> getReturnValue() {
+		return Array::Converter::wrap(descriptor);
+	}
+
+	bool unwrapRequiredArgs(Nan::NAN_METHOD_ARGS_TYPE info) {
+		return (
+			CT::Converter::arg(0, &face, info)
+		);
+	}
 };
 
 NAN_METHOD(FaceRecognizerNet::ComputeFaceDescriptor) {
 	if (CvImage::Converter::hasInstance(info[0])) {
-		computeFaceDescriptor<dlib::bgr_pixel, CvImage>(info);
+		ComputeFaceDescriptorWorkerBGR worker(FaceRecognizerNet::Converter::unwrap(info.This()));
+		FF_WORKER_SYNC("FaceRecognizerNet::ComputeFaceDescriptor", worker);
+		info.GetReturnValue().Set(worker.getReturnValue());
 	}
 	else {
-		computeFaceDescriptor<dlib::rgb_pixel, ImageRGB>(info);
+		ComputeFaceDescriptorWorkerRGB worker(FaceRecognizerNet::Converter::unwrap(info.This()));
+		FF_WORKER_SYNC("FaceRecognizerNet::ComputeFaceDescriptor", worker);
+		info.GetReturnValue().Set(worker.getReturnValue());
 	}
-};
+}
+
+NAN_METHOD(FaceRecognizerNet::ComputeFaceDescriptorAsync) {
+	if (CvImage::Converter::hasInstance(info[0])) {
+		ComputeFaceDescriptorWorkerBGR worker(FaceRecognizerNet::Converter::unwrap(info.This()));
+		FF_WORKER_ASYNC("FaceRecognizerNet::ComputeFaceDescriptorAsync", ComputeFaceDescriptorWorkerBGR, worker);
+	}
+	else {
+		ComputeFaceDescriptorWorkerRGB worker(FaceRecognizerNet::Converter::unwrap(info.This()));
+		FF_WORKER_ASYNC("FaceRecognizerNet::ComputeFaceDescriptorAsync", ComputeFaceDescriptorWorkerRGB, worker);
+	}
+}
