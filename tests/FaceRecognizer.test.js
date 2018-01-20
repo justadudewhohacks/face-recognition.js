@@ -38,5 +38,28 @@ describe('FaceRecognizer', () => {
     loadTrainFaces,
     loadTestFaces
   )
+
+  it('can save and load the state', () => {
+    const recognizer1 = fr.FaceRecognizer()
+    const recognizer2 = fr.FaceRecognizer()
+
+    const trainFaces = loadTrainFaces()
+    recognizer1.addFaces(trainFaces.sheldon, 'sheldon')
+    recognizer1.addFaces(trainFaces.raj, 'raj')
+
+    const state1 = recognizer1.serialize()
+    expect(state1).to.be.an('array').lengthOf(2)
+    state1.forEach((descs) => {
+      expect(descs.className).to.be.a('string')
+      expect(descs.faceDescriptors).to.be.an('array').lengthOf(2)
+      descs.faceDescriptors.forEach(fd => expect(fd).to.be.an('array').lengthOf(128))
+    })
+
+    recognizer2.load(state1)
+    expect(recognizer2.serialize()).to.deep.equal(state1)
+    expect(recognizer2.getDescriptorState()).to.be.an('array').lengthOf(2)
+    expect(recognizer2.getDescriptorState()).to.deep.equal(recognizer1.getDescriptorState())
+  })
+
 })
 

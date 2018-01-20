@@ -47,7 +47,7 @@ if (!fs.existsSync(trainedModelFilePath)) {
   console.log(recognizer.getDescriptorState())
 }
 
-const errors = classNames.map(_ => [])
+const errors = classNames.map(_ => 0)
 testDataByClass.forEach((faces, label) => {
   const name = classNames[label]
   console.log()
@@ -66,7 +66,7 @@ testDataByClass.forEach((faces, label) => {
 // print the result
 const result = classNames.map((className, label) => {
   const numTestFaces = testDataByClass[label].length
-  const numCorrect = numTestFaces - errors[label].length
+  const numCorrect = numTestFaces - errors[label]
   const accuracy = parseInt((numCorrect / numTestFaces) * 10000) / 100
   return `${className} ( ${accuracy}% ) : ${numCorrect} of ${numTestFaces} faces have been recognized correctly`
 })
