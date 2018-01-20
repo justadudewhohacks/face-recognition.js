@@ -162,7 +162,7 @@ example output (the lower the distance, the higher the similarity):
 
 Or immediately get the best result:
 ``` javascript
-const bestPrediction = recognizer.predict(sheldonFaceImage)
+const bestPrediction = recognizer.predictBest(sheldonFaceImage)
 console.log(bestPrediction)
 ```
 
@@ -241,6 +241,40 @@ detector.locateFaces(image)
 
 detector.detectFaces(image)
   .then((faceImages) => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
+```
+
+### Async Face Recognition
+
+``` javascript
+const recognizer = fr.AsyncFaceRecognizer()
+
+Promise.all([
+  recognizer.addFaces(sheldonFaces, 'sheldon')
+  recognizer.addFaces(rajFaces, 'raj')
+  recognizer.addFaces(howardFaces, 'howard')
+])
+  .then(() => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
+
+recognizer.predict(faceImage)
+  .then((predictions) => {
+    ...
+  })
+  .catch((error) => {
+    ...
+  })
+
+recognizer.predictBest(faceImage)
+  .then((bestPrediction) => {
     ...
   })
   .catch((error) => {
