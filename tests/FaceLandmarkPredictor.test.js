@@ -51,6 +51,7 @@ describe('FaceLandmarkPredictor', () => {
 
           done()
         })
+        .catch(err => done(err))
     })
 
   })
@@ -100,6 +101,7 @@ describe('FaceLandmarkPredictor', () => {
 
           done()
         })
+        .catch(err => done(err))
     })
 
   })

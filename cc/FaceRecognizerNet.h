@@ -1,5 +1,7 @@
 #include "Converters.h"
 #include <dlib/dnn.h>
+#include "CvImage.h"
+#include "ImageRGB.h"
 
 #ifndef __FACEREC_FACERECOGNIZERNET_H__
 #define __FACEREC_FACERECOGNIZERNET_H__
@@ -36,8 +38,12 @@ public:
 	static NAN_METHOD(New);
 
 	template<class PT, class CT>
-	static void computeFaceDescriptor(Nan::NAN_METHOD_ARGS_TYPE info);
+	struct ComputeFaceDescriptorWorker;
 	static NAN_METHOD(ComputeFaceDescriptor);
+	static NAN_METHOD(ComputeFaceDescriptorAsync);
+
+	typedef FaceRecognizerNet::ComputeFaceDescriptorWorker<dlib::bgr_pixel, CvImage> ComputeFaceDescriptorWorkerBGR;
+	typedef FaceRecognizerNet::ComputeFaceDescriptorWorker<dlib::rgb_pixel, ImageRGB> ComputeFaceDescriptorWorkerRGB;
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
