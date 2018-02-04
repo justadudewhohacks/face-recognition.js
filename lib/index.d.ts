@@ -40,6 +40,14 @@ export interface FacePrediction {
     distance: number;
 }
 
+export interface ChipDetails {
+    readonly rect: Rect;
+    readonly size: number;
+    readonly angle: number;
+    readonly cols: number;
+    readonly rows: number;
+}
+
 export interface FaceDetector {
     detectFaces(img: ImageRGB, faceSize?: number): ImageRGB[];
     locateFaces(img: ImageRGB): MmodRect[];
@@ -57,7 +65,7 @@ export interface FaceRecognizer {
     predictBest(image: ImageRGB, unknownThreshold?: number): FacePrediction;
     load(rawDescriptors: any): void;
     getDescriptorState(): FaceDescriptorState[];
-    serialize(): FaceDetector[];
+    serialize(): FaceDescriptor[];
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): void;
 }
 
@@ -66,7 +74,7 @@ export interface AsyncFaceRecognizer {
     predictBest(image: ImageRGB, unknownThreshold?: number): Promise<FacePrediction>;
     load(rawDescriptors: any): void;
     getDescriptorState(): FaceDescriptorState[];
-    serialize(): FaceDetector[];
+    serialize(): FaceDescriptor[];
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): Promise<void>;
 }
 
@@ -89,9 +97,13 @@ export function winKillProcessOnExit(): void;
 export function hitEnterToContinue(): void;
 
 export function loadImage(path: string): ImageRGB;
+export function saveImage(path: string, image: ImageRGB | ImageGray, isJpeg?: boolean): void;
 export function tileImages(images: ImageRGB[]): ImageRGB;
 export function pyramidUp(image: ImageRGB): ImageRGB;
 export function resizeImage(image: ImageRGB, scale: number): ImageRGB;
+export function jitterImage(image: ImageRGB, numJitters: number): ImageRGB[];
+export function getFaceChipDetails(detections: FullObjectDetection[]): ChipDetails[];
+export function extractImageChips(image: ImageRGB, chipDetails: ChipDetails[]): ImageRGB[];
 
 export function FaceDetector(): FaceDetector;
 export function FaceRecognizer(): FaceRecognizer;
