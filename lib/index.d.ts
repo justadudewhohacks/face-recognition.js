@@ -193,10 +193,10 @@ export interface FaceDescriptor {
 
     /**
      * Get the array of FaceDescriptors
-     * @type {any[]}
+     * @type {number[]}
      * @memberof FaceDescriptor
      */
-    faceDescriptors: any[];
+    faceDescriptors: number[];
 }
 
 /**
@@ -335,12 +335,11 @@ export interface FaceRecognizer {
     predictBest(image: ImageRGB, unknownThreshold?: number): FacePrediction;
 
     /**
-     * Load the raw FaceDescriptors
-     * @param {*} rawDescriptors 
+     * Load the provided descriptors
+     * @param {FaceDescriptor[]} descriptors the descriptors to be loaded
      * @memberof FaceRecognizer
      */
-    load(rawDescriptors: any): void;
-
+    load(descriptors: FaceDescriptor[]): void;
 
     /**
      * Get the descriptor states
@@ -497,7 +496,17 @@ export class FrontalFaceDetector {
     detect(img: ImageRGB): Rect[];
 }
 
+/**
+ * Helper utility to help exit the process
+ * cleanly when it was terminated by Ctrl-C etc
+ * @export
+ */
 export function winKillProcessOnExit(): void;
+
+/**
+ * Listen for a keyboard event
+ * @export
+ */
 export function hitEnterToContinue(): void;
 
 /**
