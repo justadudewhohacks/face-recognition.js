@@ -1,13 +1,13 @@
 // TODO : add the documentation
 
 export interface ImageGray {
-    cols: number;
-    rows: number;
+    readonly cols: number;
+    readonly rows: number;
 }
 
 export interface ImageRGB {
-    cols: number;
-    rows: number;
+    readonly cols: number;
+    readonly rows: number;
     toGray(): ImageGray;
 }
 
@@ -20,9 +20,15 @@ export class Rect {
     readonly area: number;
 }
 
+export interface Point {
+    readonly z: number;
+    readonly y: number;
+    readonly x: number;
+}
+
 export interface MmodRect {
-    confidence: number;
-    rect: Rect;
+    readonly confidence: number;
+    readonly rect: Rect;
 }
 
 export interface FaceDescriptorState {
@@ -79,8 +85,9 @@ export interface AsyncFaceRecognizer {
 }
 
 export interface FullObjectDetection {
-    numParts: number;
-    rect: Rect;
+    readonly numParts: number;
+    readonly rect: Rect;
+    getParts(): Point[];
 }
 
 export interface FaceLandmarkPredictor {
