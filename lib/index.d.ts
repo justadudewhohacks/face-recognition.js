@@ -121,7 +121,10 @@ export function AsyncFaceRecognizer(): AsyncFaceRecognizer;
 
 export class ImageWindow {
     constructor();
-    setImage(image: ImageRGB): void;
+    close(): void;
+    setImage(image: ImageRGB | ImageGray): void;
     addOverlay(rect: Rect, label?: string): void;
+    clearOverlay(): void;
+    setSize(width: number, height: number): void;
     renderFaceDetections(shapes: FullObjectDetection[]): void;
 }
