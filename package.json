@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/justadudewhohacks/face-recognition.js#readme",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "test": "mocha --timeout 30000 --recursive ./tests",
     "install": "node-gyp rebuild",
