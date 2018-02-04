@@ -11,7 +11,7 @@ NAN_MODULE_INIT(Utils::Init) {
 	Nan::SetMethod(target, "loadImage", Load_Image);
 	Nan::SetMethod(target, "saveImage", Save_Image);
 	Nan::SetMethod(target, "pyramidUp", PyramidUp);
-	Nan::SetMethod(target, "resizeImage", ResizeImage); 
+	Nan::SetMethod(target, "resizeImage", ResizeImage);
 	Nan::SetMethod(target, "hitEnterToContinue", HitEnterToContinue);
 	Nan::SetMethod(target, "getFaceChipDetails", GetFaceChipDetails);
 	Nan::SetMethod(target, "extractImageChips", ExtractImageChips);
@@ -137,7 +137,7 @@ NAN_METHOD(Utils::GetFaceChipDetails) {
 	int size = 200;
 	double padding = 0.2;
 
-	bool didThrow = 
+	bool didThrow =
 		ObjectArrayConverter<FullObjectDetection, dlib::full_object_detection>::arg(0, &detections, info)
 		|| IntConverter::optArg(1, &size, info)
 		|| DoubleConverter::optArg(2, &padding, info);
@@ -154,12 +154,12 @@ NAN_METHOD(Utils::ExtractImageChips) {
 	dlib::matrix<dlib::rgb_pixel> img;
 	std::vector<dlib::chip_details> details;
 
-	bool didThrow = 
+	bool didThrow =
 		ImageRGB::Converter::arg(0, &img, info)
 		||ObjectArrayConverter<ChipDetails, dlib::chip_details>::arg(1, &details, info);
 
 	FF_TRY_UNWRAP_ARGS(
-		"GetFaceChipDetails",
+		"ExtractImageChips",
 		didThrow
 	);
 
@@ -191,7 +191,7 @@ NAN_METHOD(Utils::JitterImage) {
 		|| IntConverter::arg(1, &numJitters, info)
 	);
 
-	dlib::rand rnd; 
+	dlib::rand rnd;
 	std::vector<dlib::matrix<dlib::rgb_pixel>> out;
 	for (int i = 0; i < numJitters; i++)
 		out.push_back(dlib::jitter_image(img, rnd));
@@ -213,7 +213,7 @@ NAN_METHOD(Utils::Mean) {
 NAN_METHOD(Utils::Distance) {
 	dlib::matrix<double> arr1, arr2;
 	FF_TRY_UNWRAP_ARGS(
-		"Mean",
+		"Distance",
 		Array::Converter::arg(0, &arr1, info)
 		|| Array::Converter::arg(1, &arr2, info)
 	);
