@@ -1,0 +1,18 @@
+{
+  "name": "typed",
+  "version": "0.1.0",
+  "description": "Examples written using typescript",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "author": "Kapil Sachdeva <ksachdeva17@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^9.4.0",
+    "ts-lint": "^4.5.1",
+    "ts-node": "^4.1.0",
+    "tslint-microsoft-contrib": "^5.0.2",
+    "typescript": "^2.7.1"
+  }
+}
