@@ -34,7 +34,7 @@ if (!fs.existsSync(trainedModelFilePath)) {
     console.log('found %s, loading model', trainedModelFile);
 
     // tslint:disable-next-line:no-var-requires
-    const trainedJsonData = require(trainedModelFilePath);
+    const trainedJsonData: fr.FaceDescriptor[] = require(trainedModelFilePath);
 
     recognizer.load(trainedJsonData);
 
