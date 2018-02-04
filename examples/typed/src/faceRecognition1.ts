@@ -11,8 +11,6 @@ const numTrainFaces = 5;
 const trainedModelFile = `faceRecognition1Model_t${numTrainFaces}_150.json`;
 const trainedModelFilePath = path.resolve(getAppdataPath(), trainedModelFile);
 
-// tslint:disable-next-line:no-var-requires
-const trainedJsonData = require(trainedModelFilePath);
 
 const dataPath = path.resolve('../../data/faces');
 const classNames = ['sheldon', 'lennard', 'raj', 'howard', 'stuart'];
@@ -38,11 +36,13 @@ if (!fs.existsSync(trainedModelFilePath)) {
         recognizer.addFaces(faces, name);
     });
 
-    console.log(recognizer.serialize());
 
     fs.writeFileSync(trainedModelFilePath, JSON.stringify(recognizer.serialize()));
 } else {
     console.log('found %s, loading model', trainedModelFile);
+
+    // tslint:disable-next-line:no-var-requires
+    const trainedJsonData = require(trainedModelFilePath);
 
     recognizer.load(trainedJsonData);
 
