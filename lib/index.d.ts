@@ -1,3 +1,28 @@
+/** 
+ * A wrapper on an array of floats/doubles
+ * @export
+ * @class Array
+ */
+export class Array {
+       
+    /**
+     * Create an instance of Array
+     * @param  {number[]} data a javascript array of doubles/floats
+     */
+    constructor(data: number[]);
+    
+    /**
+     * Get the underlying javascript array
+     * @returns number[] the data
+     */
+    getData(): number[];
+
+    /**
+     * The lenght of the underlying data
+     */
+    readonly length:number;
+}
+
 /**
  * Represents the ImageGray object
  * @export
@@ -153,7 +178,6 @@ export interface MmodRect {
     readonly rect: Rect;
 }
 
-
 /**
  * Represents the FaceDescriptorState object
  * @export
@@ -175,7 +199,6 @@ export interface FaceDescriptorState {
      */
     numFaces: number;
 }
-
 
 /**
  * Represents the FaceDescriptor object
@@ -220,7 +243,6 @@ export interface FacePrediction {
      */
     distance: number;
 }
-
 
 /**
  * This object describes where an image chip is to be extracted from within
@@ -363,6 +385,12 @@ export interface FaceRecognizer {
      * @memberof FaceRecognizer
      */
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): void;
+
+    /**
+     * Clears the descriptors
+     * @memberof FaceRecognizer
+     */
+    clear();
 }
 
 /**
@@ -419,6 +447,12 @@ export interface AsyncFaceRecognizer {
      * @memberof AsyncFaceRecognizer
      */
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): Promise<void>;
+    
+    /**
+     * Clears the descriptors
+     * @memberof AsyncFaceRecognizer
+     */
+    clear();
 }
 
 /**
@@ -584,6 +618,23 @@ export function getFaceChipDetails(detections: FullObjectDetection[]): ChipDetai
  * @returns {ImageRGB[]} an array of images
  */
 export function extractImageChips(image: ImageRGB, chipDetails: ChipDetails[]): ImageRGB[];
+
+/**
+ * Compute the mean of the provide array of Array
+  * @export
+ * @param {Array[]} input the array of Array on which to compute the mean
+ * @returns {Array} the mean
+ */
+export function mean(input:Array[]): Array;
+
+/**
+ * Compute the distance between two Array
+ * @export
+ * @param {Array} input1 the first input
+ * @param {Array} input2 the second input
+ * @returns {number} the distance between input1 and input2
+ */
+export function distance(input1:Array, input2:Array): number;
 
 /**
  * Get the FaceDetector object
