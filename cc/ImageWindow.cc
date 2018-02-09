@@ -53,8 +53,6 @@ NAN_METHOD(ImageWindow::SetImage) {
 };
 
 NAN_METHOD(ImageWindow::SetSize) {
-	bool isGray = ImageGray::Converter::hasInstance(info[0]);
-
 	int width, height;
 	FF_TRY_UNWRAP_ARGS(
 		"ImageWindow::SetSize",

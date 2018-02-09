@@ -224,7 +224,7 @@ NAN_METHOD(Utils::Distance) {
 
 	std::vector<double> vec1 = Array::toVec(arr1), vec2 = Array::toVec(arr2);
 	double distance = 0.0;
-	for (int i = 0; i < vec1.size(); i++) {
+	for (int i = 0; i < (int)vec1.size(); i++) {
 		double diff = vec1.at(i) - vec2.at(i);
 		distance += diff * diff;
 	}

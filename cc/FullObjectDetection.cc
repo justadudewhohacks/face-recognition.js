@@ -23,7 +23,7 @@ NAN_METHOD(FullObjectDetection::New) {
 NAN_METHOD(FullObjectDetection::GetParts) {
 	dlib::full_object_detection detection = FullObjectDetection::Converter::unwrap(info.This());
 	std::vector<dlib::point> parts;
-	for (int i = 0; i < detection.num_parts(); i++) {
+	for (int i = 0; i < (int)detection.num_parts(); i++) {
 		parts.push_back(detection.part(i));
 	}
 	info.GetReturnValue().Set(ObjectArrayConverter<Point, dlib::point>::wrap(parts));
