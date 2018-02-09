@@ -519,15 +519,25 @@ export interface FaceLandmarkPredictor {
  * @class FrontalFaceDetector
  */
 export class FrontalFaceDetector {
+
+    /**
+     * Creates an instance of FrontalFaceDetector.
+     * @memberof FrontalFaceDetector
+     */
     constructor();
 
     /**
      * Detect the faces in the supplied image
+     * 
+     * See more example related to adjustThreshold parameter here 
+     * http://dlib.net/face_detector.py.html
+     * 
      * @param {ImageRGB} img the image in which to detect the faces
+     * @param {number} adjustThreshold this optional argument provides the flexibility of detecting more faces by upscaling if value is > 0
      * @returns {Rect[]} the regions for the faces
      * @memberof FrontalFaceDetector
      */
-    detect(img: ImageRGB): Rect[];
+    detect(img: ImageRGB, adjustThreshold?: number): Rect[];
 }
 
 /**
