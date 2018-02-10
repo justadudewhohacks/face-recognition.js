@@ -8,6 +8,7 @@ crash.log
 data
 appdata
 test
+tests
 examples
 .travis.yml
 doc

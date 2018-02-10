@@ -1,1 +1,2 @@
-*.ts linguist-language=TypeScript
+*.d.ts linguist-vendored=false
+/examples/* linguist-documentation=false
