@@ -1,16 +1,16 @@
-/** 
+/**
  * A wrapper on an array of floats/doubles
  * @export
  * @class Array
  */
 export class Array {
-       
+
     /**
      * Create an instance of Array
      * @param  {number[]} data a javascript array of doubles/floats
      */
     constructor(data: number[]);
-    
+
     /**
      * Get the underlying javascript array
      * @returns number[] the data
@@ -83,10 +83,10 @@ export class Rect {
 
     /**
      * Creates an instance of Rect.
-     * @param {number} left 
-     * @param {number} top 
-     * @param {number} right 
-     * @param {number} bottom 
+     * @param {number} left
+     * @param {number} top
+     * @param {number} right
+     * @param {number} bottom
      * @memberof Rect
      */
     constructor(left: number, top: number, right: number, bottom: number);
@@ -381,7 +381,7 @@ export interface FaceRecognizer {
      * Add the faces for a give class with optional jittering
      * @param {ImageRGB[]} faces the faces to be added to the test data
      * @param {string} className the label/class of for the faces
-     * @param {number} [numJitters] the number of jitters to be applied to each face 
+     * @param {number} [numJitters] the number of jitters to be applied to each face
      * @memberof FaceRecognizer
      */
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): void;
@@ -390,7 +390,7 @@ export interface FaceRecognizer {
      * Clears the descriptors
      * @memberof FaceRecognizer
      */
-    clear();
+    clear(): any;
 }
 
 /**
@@ -419,7 +419,7 @@ export interface AsyncFaceRecognizer {
 
     /**
      * Load the raw FaceDescriptors
-     * @param {*} rawDescriptors 
+     * @param {*} rawDescriptors
      * @memberof AsyncFaceRecognizer
      */
     load(rawDescriptors: any): void;
@@ -443,16 +443,16 @@ export interface AsyncFaceRecognizer {
      * @param {ImageRGB[]} faces the faces to be added to the test data
      * @param {string} className the label/class of for the faces
      * @param {number} [numJitters] the number of jitters to be applied to each face
-     * @returns {Promise<void>} 
+     * @returns {Promise<void>}
      * @memberof AsyncFaceRecognizer
      */
     addFaces(faces: ImageRGB[], className: string, numJitters?: number): Promise<void>;
-    
+
     /**
      * Clears the descriptors
      * @memberof AsyncFaceRecognizer
      */
-    clear();
+    clear(): any;
 }
 
 /**
@@ -463,22 +463,22 @@ export interface AsyncFaceRecognizer {
 export interface FullObjectDetection {
 
     /**
-     * 
+     *
      * @type {number}
      * @memberof FullObjectDetection
      */
     readonly numParts: number;
 
     /**
-     * 
+     *
      * @type {Rect}
      * @memberof FullObjectDetection
      */
     readonly rect: Rect;
 
     /**
-     * 
-     * @returns {Point[]} 
+     *
+     * @returns {Point[]}
      * @memberof FullObjectDetection
      */
     getParts(): Point[];
@@ -492,21 +492,21 @@ export interface FullObjectDetection {
 export interface FaceLandmarkPredictor {
 
     /**
-     * Get the location of important facial landmarks 
+     * Get the location of important facial landmarks
      * such as the corners of the mouth and eyes, tip of the nose, and so forth.
-     * @param {ImageRGB} img the image 
+     * @param {ImageRGB} img the image
      * @param {Rect} rect the region of the image from which to get the landmarks
-     * @returns {FullObjectDetection} 
+     * @returns {FullObjectDetection}
      * @memberof FaceLandmarkPredictor
      */
     predict(img: ImageRGB, rect: Rect): FullObjectDetection;
 
     /**
-     * Asynchronously get the location of important facial landmarks 
+     * Asynchronously get the location of important facial landmarks
      * such as the corners of the mouth and eyes, tip of the nose, and so forth.
      * @param {ImageRGB} img the image
      * @param {Rect} rect the region of the image from which to get the landmarks
-     * @returns {Promise<FullObjectDetection>} 
+     * @returns {Promise<FullObjectDetection>}
      * @memberof FaceLandmarkPredictor
      */
     predictAsync(img: ImageRGB, rect: Rect): Promise<FullObjectDetection>;
@@ -514,7 +514,7 @@ export interface FaceLandmarkPredictor {
 
 /**
  * Provides methods to find human faces that are more or less looking towards the camera.
- * 
+ *
  * @export
  * @class FrontalFaceDetector
  */
@@ -528,10 +528,10 @@ export class FrontalFaceDetector {
 
     /**
      * Detect the faces in the supplied image
-     * 
-     * See more example related to adjustThreshold parameter here 
+     *
+     * See more example related to adjustThreshold parameter here
      * http://dlib.net/face_detector.py.html
-     * 
+     *
      * @param {ImageRGB} img the image in which to detect the faces
      * @param {number} adjustThreshold this optional argument provides the flexibility of detecting more faces by upscaling if value is > 0
      * @returns {Rect[]} the regions for the faces
@@ -649,42 +649,42 @@ export function distance(input1:Array, input2:Array): number;
 /**
  * Get the FaceDetector object
  * @export
- * @returns {FaceDetector} 
+ * @returns {FaceDetector}
  */
 export function FaceDetector(): FaceDetector;
 
 /**
  * Get the FaceRecognizer object
  * @export
- * @returns {FaceRecognizer} 
+ * @returns {FaceRecognizer}
  */
 export function FaceRecognizer(): FaceRecognizer;
 
 /**
  * Get the FaceLandmark5Predictor object
  * @export
- * @returns {FaceLandmarkPredictor} 
+ * @returns {FaceLandmarkPredictor}
  */
 export function FaceLandmark5Predictor(): FaceLandmarkPredictor;
 
 /**
  * Get the FaceLandmark68Predictor object
  * @export
- * @returns {FaceLandmarkPredictor} 
+ * @returns {FaceLandmarkPredictor}
  */
 export function FaceLandmark68Predictor(): FaceLandmarkPredictor;
 
 /**
  * Get the Asynchronous FaceDetector object
  * @export
- * @returns {AsyncFaceDetector} 
+ * @returns {AsyncFaceDetector}
  */
 export function AsyncFaceDetector(): AsyncFaceDetector;
 
 /**
  * Get the Asynchronous FaceRecoginzer object
  * @export
- * @returns {AsyncFaceRecognizer} 
+ * @returns {AsyncFaceRecognizer}
  */
 export function AsyncFaceRecognizer(): AsyncFaceRecognizer;
 
@@ -716,7 +716,7 @@ export class ImageWindow {
 
     /**
      * Adds an overlay on the top of the image
-     * 
+     *
      * @param {Rect} rect specify the dimensions of the overlay
      * @param {string} [label] specify the (optional) label to be displayed
      * @memberof ImageWindow
@@ -724,7 +724,7 @@ export class ImageWindow {
     addOverlay(rect: Rect, label?: string): void;
 
     /**
-     * Remove/Clear the overlay 
+     * Remove/Clear the overlay
      * @memberof ImageWindow
      */
     clearOverlay(): void;
@@ -739,7 +739,7 @@ export class ImageWindow {
 
     /**
      * Display all the detected faces
-     * @param {FullObjectDetection[]} shapes 
+     * @param {FullObjectDetection[]} shapes
      * @memberof ImageWindow
      */
     renderFaceDetections(shapes: FullObjectDetection[]): void;
