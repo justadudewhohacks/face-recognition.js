@@ -3,6 +3,7 @@ vs
 .vscode
 build
 bin
+dist
 node_modules
 crash.log
 coverage
