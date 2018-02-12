@@ -216,10 +216,10 @@ export interface FaceDescriptor {
 
     /**
      * Get the array of FaceDescriptors
-     * @type {number[]}
+     * @type {number[][]}
      * @memberof FaceDescriptor
      */
-    faceDescriptors: number[];
+    faceDescriptors: number[][];
 }
 
 /**
@@ -390,7 +390,7 @@ export interface FaceRecognizer {
      * Clears the descriptors
      * @memberof FaceRecognizer
      */
-    clear(): any;
+    clear(): void;
 }
 
 /**
@@ -452,7 +452,7 @@ export interface AsyncFaceRecognizer {
      * Clears the descriptors
      * @memberof AsyncFaceRecognizer
      */
-    clear(): any;
+    clear(): void;
 }
 
 /**
