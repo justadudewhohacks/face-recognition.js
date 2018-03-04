@@ -413,6 +413,13 @@ export interface FaceRecognizer {
      * @memberof FaceRecognizer
      */
     clear(): void;
+
+    /**
+     * Get the 128 representative descriptors for a supplied face
+     * @param {ImageRGB | CvImage} face image of the face to evaluate
+     * @returns {Number[]} an array of 128 representative descriptors
+     */
+    getFaceDescriptors(face: ImageRGB | CvImage): Number[];
 }
 
 /**
