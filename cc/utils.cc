@@ -12,6 +12,7 @@ NAN_MODULE_INIT(Utils::Init) {
 	Nan::SetMethod(target, "saveImage", Save_Image);
 	Nan::SetMethod(target, "pyramidUp", PyramidUp);
 	Nan::SetMethod(target, "resizeImage", ResizeImage);
+	Nan::SetMethod(target, "cvImageToImageRGB", CvImageToImageRGB);
 	Nan::SetMethod(target, "hitEnterToContinue", HitEnterToContinue);
 	Nan::SetMethod(target, "getFaceChipDetails", GetFaceChipDetails);
 	Nan::SetMethod(target, "extractImageChips", ExtractImageChips);
@@ -126,6 +127,17 @@ NAN_METHOD(Utils::ResizeImage) {
 	else {
 		resizeImage<dlib::rgb_pixel, ImageRGB>(info);
 	}
+};
+
+NAN_METHOD(Utils::CvImageToImageRGB) {
+	dlib::matrix<dlib::bgr_pixel> img;
+	FF_TRY_UNWRAP_ARGS(
+		"CvImageToImageRGB",
+		CvImage::Converter::arg(0, &img, info)
+	);
+	dlib::matrix<dlib::rgb_pixel> out;
+	dlib::assign_image(out, img);
+	info.GetReturnValue().Set(ImageRGB::Converter::wrap(out));
 };
 
 NAN_METHOD(Utils::HitEnterToContinue) {
