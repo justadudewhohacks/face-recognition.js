@@ -75,6 +75,28 @@ export interface ImageRGB {
 }
 
 /**
+ * Represents the CvImageWrap object
+ * @export
+ * @interface CvImage
+ */
+export interface CvImage {
+
+    /**
+     * Get the number of columns
+     * @type {number}
+     * @memberof ImageRGB
+     */
+    readonly cols: number;
+
+    /**
+     * Get the number of rows
+     * @type {number}
+     * @memberof ImageRGB
+     */
+    readonly rows: number;
+}
+
+/**
  * Represents the region in the image using a rectangle
  * @export
  * @class Rect
@@ -391,6 +413,13 @@ export interface FaceRecognizer {
      * @memberof FaceRecognizer
      */
     clear(): void;
+
+    /**
+     * Get the 128 representative descriptors for a supplied face
+     * @param {ImageRGB | CvImage} face image of the face to evaluate
+     * @returns {Number[]} an array of 128 representative descriptors
+     */
+    getFaceDescriptors(face: ImageRGB | CvImage): Number[];
 }
 
 /**
@@ -594,6 +623,14 @@ export function pyramidUp(image: ImageRGB): ImageRGB;
  * @returns {ImageRGB} the resized image
  */
 export function resizeImage(image: ImageRGB, scale: number): ImageRGB;
+
+/**
+ * Converts an CvImage wrap to an ImageRGB
+ * @export
+ * @param {CvImage} image the image to be converted
+ * @returns {ImageRGB} the converted image
+ */
+export function cvImageToImageRGB(image: CvImage): ImageRGB;
 
 /**
  * Jitter the images. This may help create more training data for your images

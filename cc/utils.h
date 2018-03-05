@@ -19,6 +19,7 @@ public:
 	static void resizeImage(Nan::NAN_METHOD_ARGS_TYPE info);
 	static NAN_METHOD(ResizeImage);
 
+	static NAN_METHOD(CvImageToImageRGB);
 	static NAN_METHOD(HitEnterToContinue);
 	static NAN_METHOD(GetFaceChipDetails);
 	static NAN_METHOD(ExtractImageChips);
