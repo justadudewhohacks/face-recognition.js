@@ -9,8 +9,10 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 
 * **[Examples](#examples)**
 * **[Install](#install)**
+* **[Boosting Performance](#boosting-performance)**
 * **[How to use](#how-to-use)**
 * **[Async API](#async-api)**
+* **[With TypeScript](#with-typescript)**
 * **[With opencv4nodejs](#with-opencv4nodejs)**
 
 <a name="examples"></a>
@@ -58,6 +60,19 @@ If you set these environment variables, the package will use your own build inst
 ``` bash
 npm install face-recognition
 ```
+
+<a name="boosting-performance"></a>
+# Boosting Performance
+
+Building the package with openblas support can hugely boost CPU performance for face detection and face recognition.
+
+### Linux and OSX
+
+Simply install openblas (`sudo apt-get install libopenblas-dev`) before building dlib / installing the package.
+
+### Windows
+
+Unfortunately on windows we have to compile [openblas](https://github.com/xianyi/OpenBLAS) manually (this will require you to have perl installed). Compiling openblas will leave you with `libopenblas.lib` and `libopenblas.dll`. In order to compile face-recognition.js with openblas support, provide an environment variable `OPENBLAS_LIB_DIR` with the path to `libopenblas.lib` and add the path to `libopenblas.dll` to your system path, before installing the package. In case you are using a manual build of dlib, you have to compile it with openblas as well.
 
 <a name="how-to-use"></a>
 # How to use
@@ -301,6 +316,16 @@ Promise.all(faceRects.map(rect => predictor.predictAsync(img, rect)))
     ...
   })
 ```
+
+<a name="with-typescript"></a>
+# With TypeScript
+
+``` javascript
+import * as fr from 'face-recognition'
+```
+
+Check out the TypeScript [examples](https://github.com/justadudewhohacks/face-recognition.js/tree/master/examples/typed).
+
 
 <a name="with-opencv4nodejs"></a>
 # With opencv4nodejs
