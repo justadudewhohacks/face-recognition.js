@@ -2,6 +2,7 @@ face-recognition.js
 =============
 [![Build Status](https://travis-ci.org/justadudewhohacks/face-recognition.js.svg?branch=master)](http://travis-ci.org/justadudewhohacks/face-recognition.js)
 [![Build status](https://ci.appveyor.com/api/projects/status/a72kh7vd5hh09bso/branch/master?svg=true)](https://ci.appveyor.com/project/justadudewhohacks/face-recognition-js/branch/master)
+[![Slack](https://slack.bri.im/badge.svg)](https://slack.bri.im)
 
 Simple Node.js API for robust face detection and face recognition. This a Node.js wrapper library for the face detection and face recognition tools implemented in <a href="https://github.com/davisking/dlib"><b>dlib</b></a>.
 
