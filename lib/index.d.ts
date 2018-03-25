@@ -688,7 +688,7 @@ export function distance(input1:Array, input2:Array): number;
  * @export
  * @returns {FaceDetector}
  */
-export function FaceDetector(): FaceDetector;
+export function FaceDetector(useFaceLandmarks68Model?: boolean): FaceDetector;
 
 /**
  * Get the FaceRecognizer object
@@ -716,7 +716,7 @@ export function FaceLandmark68Predictor(): FaceLandmarkPredictor;
  * @export
  * @returns {AsyncFaceDetector}
  */
-export function AsyncFaceDetector(): AsyncFaceDetector;
+export function AsyncFaceDetector(useFaceLandmarks68Model?: boolean): AsyncFaceDetector;
 
 /**
  * Get the Asynchronous FaceRecoginzer object
