@@ -17,10 +17,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::shape_predictor* getNativeObjectPtr() { return &predictor; }
 	dlib::shape_predictor getNativeObject() { return predictor; }
-	void setNativeObject(dlib::shape_predictor predictor) {
-		this->predictor = predictor;
-	}
 
 	typedef InstanceConverter<ShapePredictor, dlib::shape_predictor> Converter;
 

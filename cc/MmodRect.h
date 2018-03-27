@@ -21,10 +21,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::mmod_rect* getNativeObjectPtr() { return &rect; }
 	dlib::mmod_rect getNativeObject() { return rect; }
-	void setNativeObject(dlib::mmod_rect rect) {
-		this->rect = rect;
-	}
 
 	typedef InstanceConverter<MmodRect, dlib::mmod_rect> Converter;
 

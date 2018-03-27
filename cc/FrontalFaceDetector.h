@@ -14,10 +14,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::frontal_face_detector* getNativeObjectPtr() { return &detector; }
 	dlib::frontal_face_detector getNativeObject() { return detector; }
-	void setNativeObject(dlib::frontal_face_detector detector) {
-		this->detector = detector;
-	}
 
 	typedef InstanceConverter<FrontalFaceDetector, dlib::frontal_face_detector> Converter;
 

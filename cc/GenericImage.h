@@ -22,6 +22,10 @@ public:
 		this->img = dlib::mat(*pBase.get());
 	}
 
+	dlib::matrix<pixel_type>* getImagePtr() {
+		return &(this->img);
+	}
+
 	dlib::matrix<pixel_type> getImage() {
 		return this->img;
 	}

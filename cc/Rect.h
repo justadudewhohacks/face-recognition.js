@@ -29,10 +29,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::rectangle* getNativeObjectPtr() { return &rect; }
 	dlib::rectangle getNativeObject() { return rect; }
-	void setNativeObject(dlib::rectangle rect) {
-		this->rect = rect;
-	}
 
 	typedef InstanceConverter<Rect, dlib::rectangle> Converter;
 

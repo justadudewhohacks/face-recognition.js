@@ -30,10 +30,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::matrix<dlib::bgr_pixel>* getNativeObjectPtr() { return img.getImagePtr(); }
 	dlib::matrix<dlib::bgr_pixel> getNativeObject() { return img.getImage(); }
-	void setNativeObject(dlib::matrix<dlib::bgr_pixel> img) {
-		this->img = GenericImage<dlib::bgr_pixel>(img);
-	}
 
 	typedef InstanceConverter<CvImage, dlib::matrix<dlib::bgr_pixel>> Converter;
 

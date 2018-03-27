@@ -23,10 +23,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::point* getNativeObjectPtr() { return &pt; }
 	dlib::point getNativeObject() { return pt; }
-	void setNativeObject(dlib::point pt) {
-		this->pt = pt;
-	}
 
 	typedef InstanceConverter<Point, dlib::point> Converter;
 
