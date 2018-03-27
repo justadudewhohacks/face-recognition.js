@@ -30,10 +30,8 @@ public:
 
 	static Nan::Persistent<v8::FunctionTemplate> constructor;
 
+	dlib::chip_details* getNativeObjectPtr() { return &details; }
 	dlib::chip_details getNativeObject() { return details; }
-	void setNativeObject(dlib::chip_details details) {
-		this->details = details;
-	}
 
 	typedef InstanceConverter<ChipDetails, dlib::chip_details> Converter;
 
