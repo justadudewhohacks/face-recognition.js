@@ -79,8 +79,7 @@ export interface ImageRGB {
  * @export
  * @interface CvImage
  */
-export interface CvImage {
-
+export class CvImage {
     /**
      * Get the number of columns
      * @type {number}
@@ -94,6 +93,8 @@ export interface CvImage {
      * @memberof ImageRGB
      */
     readonly rows: number;
+
+    constructor(cvMat: any);
 }
 
 /**
@@ -652,7 +653,7 @@ export function jitterImage(image: ImageRGB, numJitters: number): ImageRGB[];
  * @param {FullObjectDetection[]} detections an array of FullObjectDetection
  * @returns {ChipDetails[]} an array of ChipDetails
  */
-export function getFaceChipDetails(detections: FullObjectDetection[]): ChipDetails[];
+export function getFaceChipDetails(detections: FullObjectDetection[], faceSize?: number, padding?: number): ChipDetails[];
 
 /**
  * This function extracts "chips" from an image. That is, it takes a list of
@@ -781,3 +782,21 @@ export class ImageWindow {
      */
     renderFaceDetections(shapes: FullObjectDetection[]): void;
 }
+
+export class ShapePredictor {
+    constructor(faceLandmarksModelFilePath: string);
+
+    predict(image: ImageRGB, rect: Rect): FullObjectDetection
+    predictAsync(image: ImageRGB, rect: Rect): Promise<FullObjectDetection>
+}
+
+export const models: {
+    faceLandmarks5Model: string;
+    faceLandmarks68Model: string;
+    faceDetectionModel: string;
+    faceRecognitionModel: string;
+}
+
+export function withCv(cv: any): void;
+export function toCvRect(dlibRect: Rect): any;
+export function fromCvRect(cvRect: any): Rect;
