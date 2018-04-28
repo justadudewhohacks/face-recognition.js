@@ -791,7 +791,7 @@ export class ShapePredictor {
 }
 
 export class FaceDetectorNet {
-    constructor(facDetecionModelFilePath: string);
+    constructor(faceDetectionModelFilePath: string);
 
     detect(image: ImageRGB): MmodRect
     detectAsync(image: ImageRGB): Promise<MmodRect>
