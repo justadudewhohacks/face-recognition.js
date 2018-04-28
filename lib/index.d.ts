@@ -790,6 +790,20 @@ export class ShapePredictor {
     predictAsync(image: ImageRGB, rect: Rect): Promise<FullObjectDetection>
 }
 
+export class FaceDetectorNet {
+    constructor(facDetecionModelFilePath: string);
+
+    detect(image: ImageRGB): MmodRect
+    detectAsync(image: ImageRGB): Promise<MmodRect>
+}
+
+export class FaceRecognizerNet {
+    constructor(faceRecognitionModelFilePath: string);
+
+    computeFaceDescriptor(faceImage: ImageRGB): Array
+    computeFaceDescriptorAsync(faceImage: ImageRGB): Promise<Array>
+}
+
 export const models: {
     faceLandmarks5Model: string;
     faceLandmarks68Model: string;
