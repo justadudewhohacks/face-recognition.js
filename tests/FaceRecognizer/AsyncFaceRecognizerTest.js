@@ -2,7 +2,7 @@ const { expect } = require('chai')
 
 module.exports = function(createFaceRecognizer, loadTrainFaces, loadTestFaces) {
 
-  describe('AsyncFaceDetector', () => {
+  describe('AsyncFaceRecognizer', () => {
 
     it('can be created', () => {
       expect(
