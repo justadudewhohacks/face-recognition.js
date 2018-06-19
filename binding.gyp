@@ -1,6 +1,7 @@
 {
 	"targets": [{
 		"target_name": "facerec",
+		"win_delay_load_hook": "false", # fix for LNK1194
 		# TODO: from config.h
 		"defines": [
 			"DLIB_PNG_SUPPORT",

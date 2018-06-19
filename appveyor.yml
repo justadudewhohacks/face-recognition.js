@@ -9,7 +9,7 @@ init:
 
 environment:
   matrix:
-    - nodejs_version: 9
+    - nodejs_version: 10
     - nodejs_version: 6
 
 clone_folder: c:\projects\face-recognition
