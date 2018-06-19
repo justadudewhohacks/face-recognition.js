@@ -1,6 +1,6 @@
 {
   "name": "face-recognition",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Simple Node.js API for robust face detection and face recognition.",
   "keywords": [
     "face",
