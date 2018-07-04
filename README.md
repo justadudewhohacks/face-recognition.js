@@ -37,9 +37,14 @@ Simple Node.js API for robust face detection and face recognition. This a Node.j
 
 ## Requirements
 
-### Linux and OSX
+### MacOS / OSX
+- cmake `brew install cmake`
+- XQuartz for the dlib GUI (`brew cask install xquartz`)
+- libpng for reading images (`brew install libpng`)
+
+### Linux
 - cmake
-- libx11 (XQuartz on OSX) for the dlib GUI (`sudo apt-get install libx11-dev`)
+- libx11 for the dlib GUI (`sudo apt-get install libx11-dev`)
 - libpng for reading images (`sudo apt-get install libpng-dev`)
 
 ### Windows
