@@ -124,7 +124,7 @@ Detect all faces in the image and return the bounding rectangles:
 const faceRectangles = detector.locateFaces(image)
 ```
 
-Detect all faces and return them as seperate images:
+Detect all faces and return them as separate images:
 ``` javascript
 const faceImages = detector.detectFaces(image)
 ```
